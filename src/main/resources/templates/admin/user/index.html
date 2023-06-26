@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/main}">
+<section layout:fragment="content">
+    <table>
+        <thead>
+        <tr class="th">
+            <th>회원번호</th>
+            <th>회원명</th>
+            <th>아이디</th>
+            <th>가입일자</th>
+            <th>등급</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${userList}" th:object="${user}" class="td">
+                <th:block th:replace="~{/admin/user/list::list}"></th:block>
+            </tr>
+        </tbody>
+    </table>
+
+    <th:block th:replace="~{commons/pagination::pagination}"></th:block>
+</section>
+</html>

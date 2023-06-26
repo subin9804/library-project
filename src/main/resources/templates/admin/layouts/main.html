@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title th:if="${pageTitle != null}" th:text="${pageTitle}"></title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:each="cssFile : ${addCss}" \
+          th:href="@{/admin/css/{file}.css(file=${cssFile})}">
+    <th:block layout:fragment="addCss"></th:block>
+
+    <script th:src="@{/admin/js/common.js}"></script>
+    <script th:each="jsFile : ${addScript}" th:src="@{/admin/js/{file}.js(file=${jsFile})}"></script>
+    <th:block layout:fragment="addScript"></th:block>
+</head>
+<body>
+<!-- 위의 헤더 부분-->
+<header th:replace="~{admin/outlines/header::common}"></header>
+
+<main>
+    <!-- 왼쪽에 있는 사이드 바 부분 -->
+    <aside th:replace="~{admin/outlines/side::menus}"></aside>
+
+    <!-- 이곳이 메인 부분 -> 이곳에 넣어주여야 함 -->
+    <section id="main_content" layout:fragment="content"></section>
+</main>
+<iframe name="ifrmProcess" class="dn"></iframe>
+</body>
+</html>

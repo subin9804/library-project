@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{front/layouts/main}">
+
+    <main layout:fragment="content">
+        <form id="frmLogin" name="frmLogin" method="post" th:action="@{/user/login}" autocomplete="off" th:object="${userLogin}">
+            <div class="error" th:if="${session.global != null}" th:text="${session.global}"></div>
+
+            <input type="text" name="userId" th:placeholder="#{userId}" th:value="${session.userId}">
+            <div class="error" th:if="${session.requiredUUserId != null}" th:text="${session.requiredUserId}"></div>
+
+            <input type="password" name="userPw" th:placeholder="#{userPw}">
+            <div class="error" th:if="${session.requiredUserPw != null}" th:text="${session.requiredUserPw}"></div>
+
+            <button type="submit" th:text="#{user.login.action}"></button>
+            <div class="links">
+                <a th:href="@{/user/find_id}"><i class="xi-lock"></i>[[#{user.login.findId}]]</a>
+                <a th:href="@{/user/find_pw}"><i class="xi-key"></i>[[#{user.login.findPw}]]</a>
+                <a th:href="@{/user}"><i class="xi-user-plus"></i>[[#{user.join.action}]]</a>
+            </div>
+        </form>
+    </main>
+</html>

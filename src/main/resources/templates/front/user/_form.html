@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+      <th:block th:fragment="user_form">
+          <ul class="user_form" th:object="${userJoin}">
+              <li class="rows">
+                  <input type="text" name="userId" th:field="*{userId}" th:placeholder="#{userId}">
+                  <div class="error" th:each="err : ${#fields.errors('userId')}" th:text="${err}"></div>
+              </li>
+              <li class="rows">
+                  <input type="password" name="userPw" th:field="*{userPw}" th:placeholder="#{userPw}">
+                  <div class="error" th:each="err : ${#fields.errors('userPw')}" th:text="${err}"></div>
+              </li>
+              <li class="rows">
+                  <input type="password" name="userPwCk" th:field="*{userPwCk}" th:placeholder="#{userPwCk}">
+                  <div class="error" th:each="err : ${#fields.errors('userPwCk')}" th:text="${err}"></div>
+              </li>
+
+              <li class="rows">
+                  <input type="text" name="userNm" th:field="*{userNm}" th:placeholder="#{userNm}">
+                  <div class="error" th:each="err : ${#fields.errors('userNm')}" th:text="${err}"></div>
+              </li>
+          </ul>
+      </th:block>
+</html>

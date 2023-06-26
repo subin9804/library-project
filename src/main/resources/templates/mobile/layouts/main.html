@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title th:if="${pageTitle != null}" th:text="${pageTitle}"></title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/mobile/css/front/style.css}">
+    <link th:each="cssFile : ${addCss}" rel="stylesheet" type="text/css"
+          th:href="@{/mobile/css/front/{file}.css(file=${cssFile})}">
+    <th:block layout:fragment="addCss"></th:block>
+
+    <script th:src="@{/mobile/js/front/common.js}"></script>
+    <script th:each="jsFile : ${addScript}" th:src="@{/mobile/js/{file}.js(file=${jsFile})}"></script>
+    <th:block layout:fragment="addScript"></th:block>
+</head>
+<body>
+<header th:replace="~{mobile/outlines/header::common}"></header>
+
+<main layout:fragment="content"></main>
+
+<footer th:replace="~{mobile/outlines/footer::common}"></footer>
+<iframe name="ifrmProcess" class="dn"></iframe>
+</body>
+</html>

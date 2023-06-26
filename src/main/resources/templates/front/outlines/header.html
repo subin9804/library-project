@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<header th:fragment="common">
+    <div id="header">
+        <div>
+            <div class="logo">
+                <a th:href="@{/}"><h1>LIBRARY</h1></a>
+            </div>
+            <div class="header-right">
+                <th:block sec:authorize="isAnonymous()">
+                    <a th:href="@{/user/join}">JOIN</a>
+                    <a th:href="@{/user/login}">LOGIN</a>
+                </th:block>
+                <th:block sec:authorize="isAuthenticated()">
+                    <a th:href="@{/mypage}">MYPAGE</a>
+                    <a th:href="@{/user/logout}">LOGOUT</a>
+
+                    <a th:href="@{/admin}" sec:authorize="hasAnyAuthority('SUPER')">ADMIN</a>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</header>
+</html>

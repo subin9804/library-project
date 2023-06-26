@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/main}">
+<section layout:fragment="content">
+    <h1>회원정보 변경</h1>
+    <form class='form' method="post" th:object="${userForm}" th:action="@{/admin/user/edit}" autocomplete="off">
+        <div class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+            <input type="hidden" name="userNo" th:field="*{userNo}">
+
+            <dl>
+                <dt>ID</dt>
+                <dd>
+                    <input type="text" name="userId" th:field="*{userId}">
+                    <div class="error" th:each="err : ${#fields.errors('userId')}" th:text="${err}"></div>
+                </dd>
+            </dl>
+            <dl>
+                <dt>이름</dt>
+                <dd>
+                    <input type="text" name="userNm" th:field="*{userNm}">
+                    <div class="error" th:each="err : ${#fields.errors('userNm')}" th:text="${err}"></div>
+                </dd>
+            </dl>
+            <dl>
+                <dt>비밀번호</dt>
+                <dd>
+                    <input type="hidden" id="inputPw" name="userPw" th:field="*{userPw}">
+                    <p class="btn1" id="resetBtn">초기화</p>
+                    <span id="pw"></span>
+                    <div class="error" th:each="err : ${#fields.errors('userPw')}" th:text="${err}"></div>
+                </dd>
+            </dl>
+            <dl>
+                <dt>권한</dt>
+                <dd>
+                    <input type="radio" name="userType" value="USER" id="userType_USER" th:field="*{userType}">
+                    <label for="userType_USER">일반</label>
+                    <input type="radio" name="userType" value="MANAGER" id="userType_MANAGER" th:field="*{userType}">
+                    <label for="userType_MANAGER">매니저</label>
+                    <div class="error" th:each="err : ${#fields.errors('userType')}" th:text="${err}"></div>
+                </dd>
+            </dl>
+        <button type="submit" class="submit_btn">등록하기</button>
+    </form>
+</section>
+</html>

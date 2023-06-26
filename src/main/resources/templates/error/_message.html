@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="message">
+    <div th:if="${status != null}" th:text="${status}"></div>
+    <div class="message">
+        <th:block th:if="${status == 401}" th:text="#{errors.status401}"></th:block>
+        <th:block th:if="${status == 403}" th:text="#{errors.status403}"></th:block>
+        <th:block th:if="${status == 404}" th:text="#{errors.status404}"></th:block>
+        <th:block th:if="${status == null && message != null}" th:text="${message}"></th:block>
+    </div>
+</th:block>
+
+</html>

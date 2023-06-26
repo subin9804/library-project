@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="form" th:object="${bookForm}">
+    <input type="hidden" name="gid" th:field="*{gid}">
+    <dl>
+        <dt>도서ID</dt>
+        <dd>
+            <th:block th:if="*{mode == 'update'}">
+                [[*{bookId}]]
+                <input type="hidden" name="bookId" th:field="*{bookId}">
+            </th:block>
+            <th:block th:unless="*{mode == 'update'}">
+                <input type="text" name="bookId" th:field="*{bookId}">
+                <div class="error" th:each="err : ${#fields.errors('bookId')}" th:text="${err}"></div>
+            </th:block>
+
+        </dd>
+    </dl>
+    <dl>
+        <dt>대여유형</dt>
+        <dd>
+            <input type="radio" name="rentalType" value="PAPER" id="rentalType_PAPER" th:field="*{rentalType}">
+            <label for="rentalType_PAPER">일반</label>
+            <input type="radio" name="rentalType" value="EBOOK" id="rentalType_EBOOK" th:field="*{rentalType}">
+            <label for="rentalType_EBOOK">EBOOK</label>
+        </dd>
+    </dl>
+    <dl>
+        <dt>도서명</dt>
+        <dd>
+            <input type="text" name="bookNm" th:field="*{bookNm}">
+            <div class="error" th:each="err : ${#fields.errors('bookNm')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+    <dl>
+        <dt>저자</dt>
+        <dd>
+            <input type="text" name="author" th:field="*{author}">
+            <div class="error" th:each="err : ${#fields.errors('author')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+    <dl>
+        <dt>출판사</dt>
+        <dd>
+            <input type="text" name="publisher" th:field="*{publisher}">
+            <div class="error" th:each="err : ${#fields.errors('publisher')}" th:text="${err}"></div>
+        </dd>
+    </dl>
+    <dl>
+        <dt>이미지</dt>
+        <dd>
+            <label>
+                Image 추가
+                <input type="file" name="bookImage" multiple>
+            </label>
+            <div>
+                <p></p>
+            </div>
+        </dd>
+    </dl>
+    <dl>
+        <dt>도서상세</dt>
+        <dd>
+            <textarea name="description" id="description" th:field="*{description}"></textarea>
+        </dd>
+    </dl>
+</th:block>
+</html>

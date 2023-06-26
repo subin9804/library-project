@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/main}">
+
+    <main layout:fragment="file">
+        <form method="post" th:action="@{/file/upload}" enctype="multipart/form-data">
+            <input type="hidden" name="gid" th:if="${param.gid != null}" th:value="${param.gid}">
+            <input type="hidden" name="location" th:if="${param.location != null}" th:value="${param.location}">
+            <input type="file" name="files" multiple>
+            <button type="submit">업로드</button>
+        </form>
+    </main>
+
+</html>

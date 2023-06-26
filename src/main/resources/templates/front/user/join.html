@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{front/layouts/main}">
+
+    <main layout:fragment="content">
+        <form method="post" name="frmSave" th:action="@{/user/join}" th:object="${userJoin}" autocomplete="off">
+            <div class="error global" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+            <th:block th:replace="~{front/user/_form::user_form}"></th:block>
+            <!--공통 양식 x : 회원가입시에만 존재함. -->
+            <div class="terms">
+                <input type="checkbox" name="termsAgree" value="true" th:field="*{termsAgree}" id="termsAgree">
+                <label for="termsAgree" th:text="#{user.join.termsAgree}"></label>
+                <div class="error" th:each="err : ${#fields.errors('termsAgree')}" th:text="${err}"></div>
+            </div>
+            <button type="submit" th:text="#{user.join.action}"></button>
+        </form>
+    </main>
+</html>

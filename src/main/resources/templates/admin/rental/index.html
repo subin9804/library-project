@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/main}">
+<section layout:fragment="content">
+    <table>
+        <thead>
+        <tr class="th">
+            <th>대여번호</th>
+            <th>회원번호</th>
+            <th>도서번호</th>
+            <th>도서제목</th>
+            <th>대여일자</th>
+            <th>반납예정일</th>
+            <th>실제반납일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${rental}" th:object="${item}">
+            <td class="rentalNo" th:text="*{rentalNo}"></td>
+            <td class="userNo" th:text="*{user.userNo}"></td>
+            <td class="bookId" th:text="*{book.bookId}"></td>
+            <td class="bookNm" th:text="*{bookNm}"></td>
+            <td class="rentDt" th:text="*{#temporals.format(rentDt, 'yyyy-MM-dd')}"></td>
+            <td class="returnDt" th:text="*{#temporals.format(returnDt, 'yyyy-MM-dd')}"></td>
+            <td class="realRtDt" th:text="*{#temporals.format(realRtDt, 'yyyy-MM-dd')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <th:block th:replace="~{commons/pagination::pagination}"></th:block>
+</section>
+</html>

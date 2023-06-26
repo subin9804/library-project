@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <header th:fragment="common">
+        <section class="left_logo">
+        로고_관리자페이지
+         </section>
+         <section class="right">
+            <a th:href="@{/}" class="btn1">
+                <i class="xi-external-link"></i>
+                사이트 바로가기
+            </a>
+            <a th:href="@{/user/logout}" class="btn1">
+                <i class="xi-log-out"></i>
+                로그아웃
+            </a>
+         </section>
+    </header>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/main}">
+    <section layout:fragment="content">
+        <nav th:replace="~{admin/book/_submenus::menus}"></nav>
+
+        <table class="table_rows">
+            <thead>
+                <tr>
+                    <th width="30">
+                        <input type="checkbox" class="select_all" data-target-name="bookId" id="select_all">
+                        <label for="select_all"></label>
+                    </th>
+                    <th width="150">도서ID</th>
+                    <th colspan="2">도서정보</th>
+                    <th width="150">도서종류</th>
+                    <th width="150">저자</th>
+                    <th width="150">출판사</th>
+                    <th width="250"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <th:block th:if="${#lists.isEmpty(books)}">
+                <tr>
+                    <td colspan="7">등록된 도서가 없습니다.</td>
+                </tr>
+            </th:block>
+            <th:block th:unless="${#lists.isEmpty(books)}">
+                <tr th:each="book, status : ${books}" th:object="${book}">
+                    <td>
+                        <input type="checkbox" name="bookId" th:value="*{bookId}" th:id="'bookId_' + ${status.index}">
+                    </td>
+                    <td th:text="*{bookId}"></td>
+                    <td>이미지</td>
+                    <td th:text="*{bookNm}"></td>
+                    <td></td>
+                    <td th:text="*{author}"></td>
+                    <td th:text="*{publisher}"></td>
+                    <td>
+                        <a th:href="@{/admin/book/update/{id}(id=*{bookId})}" class="btn1">수정하기</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+
+        <th:block th:replace="~{commons/pagination::pagination}"></th:block>
+    </section>
+</html>
