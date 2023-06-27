@@ -1,6 +1,7 @@
 package org.awesome.controllers.admin.books;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.awesome.commons.Pagination;
@@ -8,6 +9,7 @@ import org.awesome.entities.RentalBook;
 import org.awesome.models.book.BookInfoService;
 import org.awesome.models.book.BookListService;
 import org.awesome.models.book.BookSaveService;
+import org.awesome.repositories.RentalBookRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,8 @@ public class BookController {
     private final BookSaveService saveService;
     private final BookInfoService infoService;
     private final BookListService listService;
+    private final RentalBookRepository bookRepository;
+    private final HttpSession session;
 
     @GetMapping
     public String index(BookSearch bookSearch, Model model, HttpServletRequest request) {
@@ -76,10 +80,20 @@ public class BookController {
             }
         }
         saveService.save(bookForm);
-
         return "redirect:/admin/book";
-
     }
 
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable("id") String bookId, Model model){
+        RentalBook book = bookRepository.findById(bookId).orElse(null);
+
+        if(book != null) {
+            bookRepository.delete(book);
+        }
+
+        bookRepository.flush();
+
+        return "redirect:/admin/book";
+    }
 
 }

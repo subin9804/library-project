@@ -48,6 +48,10 @@ public interface RentalBookRepository extends JpaRepository<RentalBook, String>,
                 orBuilder.or(rentalBook.author.contains(skey));
             } else if (sopt.equals("publisher")) { // 출판사
                 orBuilder.or(rentalBook.publisher.contains(skey));
+            } else {
+                orBuilder.andAnyOf(rentalBook.bookNm.contains(skey),
+                                rentalBook.author.contains(skey),
+                                rentalBook.publisher.contains(skey));
             }
 
             builder.and(orBuilder);
