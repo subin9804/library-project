@@ -1,4 +1,4 @@
-/** 공통 이벤트 처리 */
+/** 비밀번호 초기화 */
 window.addEventListener("DOMContentLoaded", function () {
     let resetBtn = document.querySelector("#resetBtn");
     const inputPw = document.getElementById("inputPw");
@@ -10,6 +10,6 @@ window.addEventListener("DOMContentLoaded", function () {
     resetBtn.addEventListener("click", () => {
         inputPw.value = "11111111";
         console.log(inputPw);
-        p.innerText = "비밀번호가 초기화되었습니다.";
+        p.innerText = "비밀번호가 "11111111"로 변경되었습니다.";
     })
 })

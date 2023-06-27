@@ -4,9 +4,8 @@
       layout:decorate="~{admin/layouts/main}">
 <section layout:fragment="content">
     <h1>회원정보 변경</h1>
-    <form class='form' method="post" th:object="${userForm}" th:action="@{/admin/user/edit}" autocomplete="off">
-        <div class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
-            <input type="hidden" name="userNo" th:field="*{userNo}">
+    <form class='form' method="post" th:object="${userListForm}" th:action="@{/admin/user/edit}" autocomplete="off">
+            <input type="text" name="userNo" th:field="*{userNo}" class="dn">
 
             <dl>
                 <dt>ID</dt>

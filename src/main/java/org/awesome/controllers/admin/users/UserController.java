@@ -14,11 +14,11 @@ import org.awesome.models.user.UserListService;
 import org.awesome.repositories.RentalRepository;
 import org.awesome.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.internal.Errors;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,25 +52,24 @@ public class UserController {
     @GetMapping("/edit/{userNo}")
     public String editUser(@PathVariable Long userNo, Model model) {
         User user = userRepository.findById(userNo).orElseGet(User::new);
-        UserListForm userForm = null;
+        UserListForm userListForm = null;
         if (user != null) {
-            userForm = new ModelMapper().map(user, UserListForm.class);
-            userForm.setUserType(user.getUserType().toString());
+            userListForm = new ModelMapper().map(user, UserListForm.class);
+            userListForm.setUserType(user.getUserType().toString());
         }
 
-//        String password = user.getUserPw();
-//        System.out.println("pass: "+password);
+        String password = user.getUserPw();
+        System.out.println("pass: "+password);
 
         String addScript = "admin/setUserPw";
 
-        model.addAttribute("userForm", userForm);
+        model.addAttribute("userListForm", userListForm);
         model.addAttribute("addScript", addScript);
         return "admin/user/edit";
     }
 
     @PostMapping("/edit")
-    public String editUserPs(@Valid UserListForm userForm, Errors errors, Model model) {
-        System.out.println(userForm.getUserNo());
+    public String editUserPs(@Valid UserListForm userForm, Errors errors) {
 
         if (errors.hasErrors()) {
             System.out.println(errors);
