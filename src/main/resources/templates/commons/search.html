@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <th:block th:fragment="search">
+
+        <form name="searchForm" method="get" th:action="@{/admin/book}" th:object="${bookSearch}">
+
+            <select name="sopt">
+                <option value="" th:field="*{sopt}" selected>전체</option>
+                <option value="bookNm" th:field="*{sopt}">제목</option>
+                <option value="author" th:field="*{sopt}">저자</option>
+                <option value="publisher" th:field="*{sopt}">출판사</option>
+            </select>
+
+            <input type="checkbox" name="rentalType" id="rentalType_ebook" value="EBOOK" th:field="*{rentalType}">
+            <label for="rentalType_ebook">E-Book</label>
+
+            <input type="checkbox" name="rentalType" id="rentalType_paper" value="PAPER" th:field="*{rentalType}">
+            <label for="rentalType_paper">Paper</label>
+
+
+            <input type="checkbox" name="rentalStatus" id="rentalStatus" value="RETURN" th:field="*{status}">
+            <label for="rentalStatus">대여중인 도서 제외</label>
+
+            <input type="text" th:field="*{skey}"/>
+            <button type="submit">검색</button>
+        </form>
+    </th:block>
+</html>

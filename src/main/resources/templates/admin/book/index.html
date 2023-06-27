@@ -5,6 +5,8 @@
     <section layout:fragment="content">
         <nav th:replace="~{admin/book/_submenus::menus}"></nav>
 
+        <th:block th:replace="~{commons/search::search}"></th:block>
+
         <table class="table_rows">
             <thead>
                 <tr>
@@ -17,6 +19,7 @@
                     <th width="150">도서종류</th>
                     <th width="150">저자</th>
                     <th width="150">출판사</th>
+                    <th width="150">대여상태</th>
                     <th width="250"></th>
                 </tr>
             </thead>
@@ -38,6 +41,7 @@
                     <td></td>
                     <td th:text="*{author}"></td>
                     <td th:text="*{publisher}"></td>
+                    <td th:text="*{status}"></td>
                     <td>
                         <a th:href="@{/admin/book/update/{id}(id=*{bookId})}" class="btn1">수정하기</a>
                     </td>

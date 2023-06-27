@@ -36,6 +36,7 @@ public class BookController {
 
         String url = request.getContextPath() + "/admin/book";
         Pagination<RentalBook> pagination = new Pagination<>(page, url);
+        model.addAttribute("bookSearch", bookSearch);
         model.addAttribute("pagination", pagination);
         model.addAttribute("books", books);
         return "admin/book/index";
