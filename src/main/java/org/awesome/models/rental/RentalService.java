@@ -15,10 +15,8 @@ import org.awesome.repositories.RentalRepository;
 import org.awesome.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.function.Supplier;
+import java.util.List;
 
 @Log
 @Service
@@ -58,5 +56,21 @@ public class RentalService {
             book.setStatus(RentalStatus.valueOf("RENT"));
             bookRepository.flush();
         }
+    }
+
+    public Rental getRentalInfo(String bookId) {
+        RentalBook book = bookRepository.findById(bookId).orElse(null);
+        List<Rental> rentalList = rentalRepository.findAllByBook(book);
+
+        Rental rented = null;
+        for(Rental rental : rentalList) {
+            if(rental.getStatus() == RentalStatus.RENT) {
+                rented = rental;
+                break;
+            }
+        }
+
+        System.out.println(rented);
+        return rented;
     }
 }

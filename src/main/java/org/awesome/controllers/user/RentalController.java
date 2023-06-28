@@ -56,7 +56,14 @@ public class RentalController {
         book.setStatus(RentalStatus.valueOf("RETURN"));
         bookRepository.flush();
 
-
-        return "redirect:/mypage/rent";
+        // mypage에서 반납하는 경우 mypage로 리다이렉트,
+        // 도서상세페이지에서 반납하는 경우 이전경로로 리다이렉트
+        String uri = request.getRequestURI();
+        if(uri == "/mypage/rent") {
+            return "redirect:/mypage/rent";
+        } else {
+            String referer = request.getHeader("Referer");
+            return "redirect:"+ referer;
+        }
     }
 }

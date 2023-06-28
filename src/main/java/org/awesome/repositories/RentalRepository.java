@@ -1,6 +1,7 @@
 package org.awesome.repositories;
 
 import org.awesome.entities.Rental;
+import org.awesome.entities.RentalBook;
 import org.awesome.entities.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +13,9 @@ import java.util.List;
 public interface RentalRepository extends JpaRepository<Rental, Long> {
 
     public List<Rental> findAllByUser(User user);
+    public List<Rental> findAllByBook(RentalBook book);
+
+
 
     default Page<Rental> getRentalList() {
         /** 페이징 처리 S */
@@ -24,4 +28,6 @@ public interface RentalRepository extends JpaRepository<Rental, Long> {
 
         return data;
     }
+
+
 }

@@ -31,16 +31,36 @@
             <dt>세부사항</dt>
             <dd th:text="*{description}"></dd>
         </dl>
-        <form method="post" th:action="@{/book/rent}">
-            <input type="hidden" th:value="*{bookId}" name="bookId">
 
-            <button th:if="*{status.toString()} == 'RETURN'" class="rented">
-                <a sec:authorize="isAnonymous()" onclick="return confirm('로그인이 필요합니다');" th:href="@{/user/login}">
-                    대여하기
-                </a>
-                <th:block sec:authorize="isAuthenticated()">대여하기</th:block>
-            </button>
-            <button th:if="*{status.toString()} == 'RENT'" disabled>대여중</button>
-        </form>
+<!--        대여-->
+        <th:block th:if="*{status.toString()} == 'RETURN'">
+            <form method="post" th:action="@{/book/rent}">
+                <input type="hidden" th:value="*{bookId}" name="bookId">
+
+                <button class="rented">
+                    <a sec:authorize="isAnonymous()" onclick="return alert('로그인이 필요합니다');" th:href="@{/user/login}">
+                        대여하기
+                    </a>
+                    <th:block sec:authorize="isAuthenticated()">대여하기</th:block>
+                </button>
+            </form>`
+        </th:block>
+
+<!--        반납-->
+        <th:block th:if="*{status.toString()} == 'RENT'">
+            <form method="post" th:action="@{/book/return}">
+                <input type="hidden" name="bookId" th:value="*{bookId}">
+                <input type="hidden" name="rentalNo" th:value="${rentalNo}">
+                <th:block sec:authorize="isAuthenticated()">
+                    <button th:if="${userId == session.userInfo.userId}">반납하기</button>
+                    <button th:unless="${userId == session.userInfo.userId}" disabled>대여중</button>
+                </th:block>
+                <th:block sec:authorize="isAnonymous()">
+                    <button disabled>대여중</button>
+                </th:block>
+
+            </form>
+
+        </th:block>
     </section>
 </html>

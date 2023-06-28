@@ -90,9 +90,7 @@ public class BookController {
         if(book != null) {
             bookRepository.delete(book);
         }
-
         bookRepository.flush();
-
         return "redirect:/admin/book";
     }
 
