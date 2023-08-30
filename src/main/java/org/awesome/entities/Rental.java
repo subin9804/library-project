@@ -26,6 +26,8 @@ public class Rental {
     @Enumerated(EnumType.STRING)
     private RentalStatus status = RentalStatus.RENT;
 
+    private int delayCnt;
+
     @ToString.Exclude
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="userNo")

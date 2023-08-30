@@ -36,5 +36,4 @@ public class RentalBook extends BaseEntity {
 
     @Lob
     private String description;
-
 }

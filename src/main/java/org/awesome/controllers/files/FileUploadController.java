@@ -2,26 +2,21 @@ package org.awesome.controllers.files;
 
 import lombok.RequiredArgsConstructor;
 import org.awesome.entities.FileInfo;
-import org.awesome.models.file.FileInfoSaveService;
+import org.awesome.models.file.FileUploadService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/file/upload")
 @RequiredArgsConstructor
 public class FileUploadController {
 
-    private final FileInfoSaveService infoSaveService;
+    private final FileUploadService uploadService;
 
     @Value("${file.upload.path}")
     private String fileUploadPath;
@@ -34,9 +29,10 @@ public class FileUploadController {
 
     @PostMapping
     @ResponseBody
-    public void uploadPs(MultipartFile[] files, String gid, String location) {
+    public void uploadPs(@RequestParam("file") MultipartFile[] files, String gid, String location) {
+
         for(MultipartFile file : files) {
-            FileInfo info = infoSaveService.save(file, gid, location);
+            FileInfo info = uploadService.upload(file, gid, location);
             if(info == null) {
                 continue;
             }

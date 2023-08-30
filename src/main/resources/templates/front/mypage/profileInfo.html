@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <div th:fragment="info" th:object="${userInfo}">
+        <dl>
+            <dt>회원번호</dt>
+            <dd th:text="*{userNo}"></dd>
+        </dl>
+        <dl>
+            <dt>회원ID</dt>
+            <dd th:text="*{userId}"></dd>
+        </dl>
+        <dl>
+            <dt>회원이름</dt>
+            <dd th:text="*{userNm}"></dd>
+        </dl>
+        <dl>
+            <dt>세부사항</dt>
+            <dd>여긴 모하지</dd>
+        </dl>
+    </div>
+</html>

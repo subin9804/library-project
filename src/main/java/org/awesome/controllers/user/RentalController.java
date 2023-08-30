@@ -56,6 +56,9 @@ public class RentalController {
         book.setStatus(RentalStatus.valueOf("RETURN"));
         bookRepository.flush();
 
+        // 연장횟수 0으로 변경
+        item.setDelayCnt(0);
+
         // mypage에서 반납하는 경우 mypage로 리다이렉트,
         // 도서상세페이지에서 반납하는 경우 이전경로로 리다이렉트
         String uri = request.getRequestURI();
@@ -66,4 +69,9 @@ public class RentalController {
             return "redirect:"+ referer;
         }
     }
+
+
+
 }
+
+

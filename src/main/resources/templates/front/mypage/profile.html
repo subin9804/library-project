@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/main}">
+
+    <section layout:fragment="content">
+        <th:block th:replace="~{front/mypage/profileInfo::info}"></th:block>
+        <th:block th:replace="~{front/mypage/profileEdit::edit}"></th:block>
+    </section>
+
+
+</html>

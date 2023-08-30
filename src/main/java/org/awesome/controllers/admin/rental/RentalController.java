@@ -1,14 +1,11 @@
 package org.awesome.controllers.admin.rental;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.awesome.commons.Pagination;
 import org.awesome.entities.Rental;
-import org.awesome.entities.User;
 import org.awesome.models.rental.RentalService;
-import org.awesome.models.user.UserInfo;
 import org.awesome.repositories.RentalRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -31,7 +28,7 @@ public class RentalController {
     @GetMapping("/rental")
     public String index(Model model) {
         Page<Rental> page = rentalRepository.getRentalList();
-        String url = request.getContextPath() + "/mypage";
+        String url = request.getContextPath();
         Pagination<Rental> pagination = new Pagination<>(page, url);
 
         List<Rental> rental = rentalRepository.findAll();

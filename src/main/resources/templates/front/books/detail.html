@@ -52,7 +52,7 @@
                 <input type="hidden" name="bookId" th:value="*{bookId}">
                 <input type="hidden" name="rentalNo" th:value="${rentalNo}">
                 <th:block sec:authorize="isAuthenticated()">
-                    <button th:if="${userId == session.userInfo.userId}">반납하기</button>
+                    <button th:if="${userId == session.userInfo.userId}" class="rented">반납하기</button>
                     <button th:unless="${userId == session.userInfo.userId}" disabled>대여중</button>
                 </th:block>
                 <th:block sec:authorize="isAnonymous()">

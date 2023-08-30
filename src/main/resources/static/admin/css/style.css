@@ -191,3 +191,10 @@ table button:hover {
     background-color: black;
     color: white;
 }
+
+/* 파일 모달창 및 컨테이너 */
+#imgContainer {
+    width: 100%;
+    min-height: 150px;
+    background-color: #ddd;
+}

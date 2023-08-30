@@ -3,8 +3,8 @@ package org.awesome.models.book;
 import lombok.RequiredArgsConstructor;
 import org.awesome.constants.RentalType;
 import org.awesome.controllers.admin.books.BookForm;
-import org.awesome.entities.Rental;
 import org.awesome.entities.RentalBook;
+import org.awesome.repositories.FileInfoRepository;
 import org.awesome.repositories.RentalBookRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BookSaveService {
     private final RentalBookRepository repository;
+    private final FileInfoRepository fileInfoRepository;
 
     public void save(BookForm bookForm) {
 
@@ -24,6 +25,7 @@ public class BookSaveService {
         RentalBook rentalBook = null;
         if (mode.equals("update")) {
             String bookId = bookForm.getBookId();
+
             rentalBook = repository.findById(bookId).orElseGet(RentalBook::new);
             rentalBook.setBookId(bookId);
             rentalBook.setBookNm(bookForm.getBookNm());
@@ -31,6 +33,7 @@ public class BookSaveService {
             rentalBook.setGid(bookForm.getGid());
             rentalBook.setPublisher(bookForm.getPublisher());
             rentalBook.setDescription(bookForm.getDescription());
+
         } else {
             rentalBook = new ModelMapper().map(bookForm, RentalBook.class);
         }

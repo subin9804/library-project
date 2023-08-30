@@ -25,6 +25,10 @@
                 <td class="returnDt" th:text="*{#temporals.format(returnDt, 'yyyy-MM-dd')}"></td>
                 <td class="realRtDt" th:text="*{#temporals.format(realRtDt, 'yyyy-MM-dd')}"></td>
                 <td>
+                    <button th:if="${delayCnt <= 2}" type="button">연장하기</button>
+                    <button th:if="${delayCnt > 2}" type="button" disabled>연장불가</button>
+                </td>
+                <td>
                     <form method="post" th:action="@{/book/return}">
                         <input type="hidden" name="bookId" th:value="*{book.bookId}">
                         <input type="hidden" name="rentalNo" th:value="*{rentalNo}">

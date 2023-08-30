@@ -26,13 +26,21 @@ public class FileInfo extends BaseUserEntity {
     @Column(length = 100, nullable = false)
     private String fileName;    // 원본파일이름
 
+    @Column(length = 45)
+    private String extension;   // 확장자
+
     @Column(length = 60, nullable = false)
     private String contentType; // 파일형식
 
-    private boolean success;    // 그룹 작업 완료 여부
+    private boolean done;    // 그룹 작업 완료 여부
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userNo")
     private User user;  // 파일을 올린 사용자
 
+    @Transient
+    private String filePath;    // 파일 업로드 경로
+
+    @Transient
+    private String[] fileUrl;   // 파일 URL
 }
