@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 @Service
 @RequiredArgsConstructor
 public class FileUploadService {
@@ -74,6 +75,7 @@ public class FileUploadService {
 
             /** 파일 업로드 처리 */
             try {
+                System.out.println("item: " + item);
                 File _file = new File(item.getFilePath());
                 file.transferTo(_file);
 

@@ -87,6 +87,8 @@ public class FileInfoService {
         // 파일 서버 접속 URL(fileUrl)
         String fileUrl = request.getContextPath() + uploadUrl + folder + "/" + fileName;
 
+        item.setFilePath(filePath);
+        item.setFileUrl(fileUrl);
     }
 
     private String getFileName(long fileNo, String extension) {

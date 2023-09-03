@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="form" th:object="${bookForm}">
     <input type="hidden" name="gid" th:field="*{gid}">
-    <input type="file" name="imgInput" id="imgInput" class="dn">
+    <input type="file" name="imgInput" id="imgInput" class="dn" multiple>
     <dl>
         <dt>도서ID</dt>
         <dd>
@@ -60,5 +60,8 @@
             <textarea name="description" id="description" th:field="*{description}"></textarea>
         </dd>
     </dl>
+
+    <script th:replace="~{commons/file/_file_tpl::tpl_image1}"></script>
+    <div>asidl</div>
 </th:block>
 </html>

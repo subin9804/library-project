@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.awesome.entities.FileInfo;
 import org.awesome.models.file.FileUploadService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/file/upload")
@@ -27,25 +30,18 @@ public class FileUploadController {
         return "front/file/upload";
     }
 
+    /**
+     * 파일 업로드 처리
+     * @param files
+     * @param gid
+     * @param location
+     * @return
+     */
     @PostMapping
     @ResponseBody
-    public void uploadPs(@RequestParam("file") MultipartFile[] files, String gid, String location) {
+    public ResponseEntity<List<FileInfo>> uploadPs (MultipartFile[] files, String gid, String location) {
+        List<FileInfo> items = uploadService.upload(files, gid, location);
 
-        for(MultipartFile file : files) {
-            FileInfo info = uploadService.upload(file, gid, location);
-            if(info == null) {
-                continue;
-            }
-
-            String uploadPath = fileUploadPath + info.getFileNo();
-
-            try {
-                file.transferTo(new File(uploadPath));
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
+        return ResponseEntity.ok(items);
     }
 }

@@ -42,5 +42,5 @@ public class FileInfo extends BaseUserEntity {
     private String filePath;    // 파일 업로드 경로
 
     @Transient
-    private String[] fileUrl;   // 파일 URL
+    private String fileUrl;   // 파일 URL
 }

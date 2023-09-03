@@ -15,33 +15,4 @@ window.addEventListener("DOMContentLoaded", function () {
             }
         });
    }
-
-   /* 파일 추가 모달 */
-    let closebtn = document.getElementById("close");
-    let openbtn = document.getElementById("fileUploadImg");
-    let confirmbtn = document.getElementById("confirm");
-    let modal = document.getElementById("modal");
-    let back = document.getElementById("back");
-    let imageInput = document.getElementById("bookImage");
-    let thumbnail = document.getElementById("thumbnail");
-    let imageName = new Array();
-
-    const body = document.querySelector('body');
-    // 파일추가버튼
-    openbtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        modal.classList.remove("dn");
-        back.classList.remove("dn");
-        body.style.overflow = 'hidden'
-    })
-
-    // 모달창 닫기버튼
-    closebtn.addEventListener("click", function() {
-        modal.classList.add("dn");
-        back.classList.add("dn");
-        body.style.overflow = 'auto'
-
-        imageInput.value = '';
-        thumbnail.replaceChildren();
-    })
-
+});
