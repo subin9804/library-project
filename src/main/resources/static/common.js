@@ -17,7 +17,10 @@ commonLib.ajaxLoad = function (method, url, params, responseType) {
 
         xhr.open(method, url);
         xhr.setRequestHeader(header, token);
-        xhr.send(params);
+
+        if(method === "GET") xhr.send();
+        else xhr.send(params);
+
         responseType = responseType ? responseType.toLowerCase() : undefined;
         if(responseType == 'json') {
             xhr.responseType = responseType;

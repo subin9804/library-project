@@ -19,14 +19,13 @@
 </head>
 <body>
     <header th:replace="~{front/outlines/header::common}"></header>
-<div>11</div>
     <main>
 
         <!-- 왼쪽에 있는 사이드 바 부분 -->
         <aside th:replace="~{front/outlines/side::menus}"></aside>
 
         <!-- 이곳이 메인 부분 -> 이곳에 넣어주여야 함 -->
-        <section id="main_content" layout:fragment="content"></section>
+        <section id="main" layout:fragment="content"></section>
 
     </main>
 

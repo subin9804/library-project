@@ -1,5 +1,7 @@
 package org.awesome.commons;
 
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import java.util.ResourceBundle;
@@ -10,8 +12,10 @@ import java.util.ResourceBundle;
 public class CommonException extends RuntimeException{
     protected static ResourceBundle bundleValidation;
     protected static ResourceBundle bundleError;
-
     protected HttpStatus httpStatus;
+
+    @Autowired
+    private HttpServletResponse response;
 
     static {
         bundleValidation = ResourceBundle.getBundle("messages.Validations");
@@ -31,4 +35,5 @@ public class CommonException extends RuntimeException{
     public HttpStatus getStatus() {
         return httpStatus;
     }
+
 }

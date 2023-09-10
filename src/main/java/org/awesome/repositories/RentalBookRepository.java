@@ -17,6 +17,8 @@ import java.util.List;
 
 public interface RentalBookRepository extends JpaRepository<RentalBook, String>, QuerydslPredicateExecutor<RentalBook> {
 
+    List<RentalBook> findByRentalTypeOrderByRegDtDesc(RentalType rt);
+
     default Page<RentalBook> getBooks(BookSearch bookSearch) {
         /** 페이징 처리 S */
         int page = bookSearch.getPage();

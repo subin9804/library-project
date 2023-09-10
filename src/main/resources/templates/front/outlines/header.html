@@ -17,7 +17,7 @@
                     <a th:href="@{/mypage}">MYPAGE</a>
                     <a th:href="@{/user/logout}">LOGOUT</a>
 
-                    <a th:href="@{/admin}" sec:authorize="hasAnyAuthority('SUPER')">ADMIN</a>
+                    <a th:href="@{/admin}" sec:authorize="hasAnyAuthority('MANAGER', 'SUPER')">ADMIN</a>
                 </th:block>
             </div>
         </div>

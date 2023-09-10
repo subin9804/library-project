@@ -12,6 +12,7 @@ import java.util.List;
 import static org.springframework.data.domain.Sort.Order.asc;
 
 public interface FileInfoRepository extends JpaRepository<FileInfo, Long>, QuerydslPredicateExecutor<FileInfo> {
+    List<FileInfo> findByGid(String Gid);
     List<FileInfo> findByGidOrderByRegDtAsc(String gid);
     List<FileInfo> findByGidAndLocationOrderByRegDtAsc(String gid, String location);
 

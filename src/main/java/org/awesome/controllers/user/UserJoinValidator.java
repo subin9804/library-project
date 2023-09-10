@@ -32,7 +32,7 @@ public class UserJoinValidator implements Validator {
 
         /** 1. 아이디 중복 여부 S */
         if (userId != null && !userId.isBlank() && repository.isUserExists(userId)) {
-            errors.rejectValue("userEmail", "user.validation.exists");
+            errors.rejectValue("userId", "user.validation.exists");
         }
         /** 1. 아이디 중복 여부 E */
 

@@ -38,8 +38,8 @@ public class RentalService {
         String bookId = request.getParameter("bookId");
         RentalBook book = bookRepository.findById(bookId).orElse(null);
 
-        log.info(user.toString());
-        log.info(bookId.toString());
+//        log.info(user.toString());
+//        log.info(bookId.toString());
 
         if(user != null && book != null) {
             Rental rental = Rental.builder()

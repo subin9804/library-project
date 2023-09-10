@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 
-    <section layout:fragment="content">
+    <section class="main_content" layout:fragment="content">
         <th:block th:replace="~{front/mypage/profileInfo::info}"></th:block>
         <th:block th:replace="~{front/mypage/profileEdit::edit}"></th:block>
     </section>

@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{front/layouts/main}">
 
-<section layout:fragment="content">
+<section class="main_content" layout:fragment="content">
     <h1><i class="xi-library-books-o"></i> 나의 대여 기록</h1>
     <table>
         <thead>
@@ -24,10 +24,16 @@
                 <td class="rentDt" th:text="*{#temporals.format(rentDt, 'yyyy-MM-dd')}"></td>
                 <td class="returnDt" th:text="*{#temporals.format(returnDt, 'yyyy-MM-dd')}"></td>
                 <td class="realRtDt" th:text="*{#temporals.format(realRtDt, 'yyyy-MM-dd')}"></td>
-                <td>
-                    <button th:if="${delayCnt <= 2}" type="button">연장하기</button>
+                <td th:if="*{status.toString()} == 'RETURN'">
+                    <button disabled>연장하기</button>
+                </td>
+                <td th:unless="*{status.toString()} == 'RETURN'">
+                    <button th:if="${delayCnt <= 2}" type="button">
+                        <a th:href="@{delay/{rentalNo}(rentalNo = *{rentalNo})}">연장하기</a>
+                    </button>
                     <button th:if="${delayCnt > 2}" type="button" disabled>연장불가</button>
                 </td>
+
                 <td>
                     <form method="post" th:action="@{/book/return}">
                         <input type="hidden" name="bookId" th:value="*{book.bookId}">

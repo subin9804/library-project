@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="form" th:object="${bookForm}">
     <input type="hidden" name="gid" th:field="*{gid}">
-    <input type="file" name="imgInput" id="imgInput" class="dn" multiple>
+    <input type="file" name="file" id="file" class="dn" multiple>
     <dl>
         <dt>도서ID</dt>
         <dd>
@@ -50,8 +50,9 @@
     <dl>
         <dt>이미지</dt>
         <dd>
-            <button id="imgbtn" class="btn1" data-image-only="true">Image 추가</button>
-            <div id="imgContainer"></div>
+            <div class="uploaded_images" id="attach_images"></div>
+            <button type="button" data-location="image" class="attachFiles image" data-image-only="true">이미지</button>
+            <div class="attachedFiles images"></div>
         </dd>
     </dl>
     <dl>
@@ -62,6 +63,5 @@
     </dl>
 
     <script th:replace="~{commons/file/_file_tpl::tpl_image1}"></script>
-    <div>asidl</div>
 </th:block>
 </html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/main}">
+
+    <section layout:fragment="content">
+        <div id="banner">
+            <div id="bannerBox">
+                <img src="front/images/banner1.png" class="bannerImg active">
+                <img src="front/images/banner2.png" class="bannerImg">
+                <img src="front/images/banner3.png" class="bannerImg">
+
+                <!-- 오른쪽버튼-->
+                <div>dsf</div>
+                <div id="bRight" onClick="navigateBanner(1)" class="arrow" style="right: 0;">></div>
+                <!-- 왼쪽버튼 -->
+                <div id="bLeft" onClick="navigateBanner(0)" class="arrow" style="left: 0;"><</div>
+            </div>
+        </div>
+        <div id="notice">
+            <i class="xi-volume-up"></i> 주요 공지사항!!!
+        </div>
+        <hr>
+        <div id="reco">
+            <div>
+                <h1>-- 최신 도서 --</h1>
+                <ul class="flex">
+                    <li th:each="book : ${books}">
+                        <a th:href="@{/book/{bookId}(bookId = ${book.bookId})}">
+                            <th:block th:each="file : ${bookFiles}">
+                                <img class="thumb" th:if="${file.gid.equals(book.gid)}" th:src="${file.fileUrl}">
+                            </th:block>
+                            <p th:text="${book.bookNm}"></p>
+                        </a>
+                    </li>
+                </ul>
+                <p th:if="${books.size() < 1}" th:text="#{book.notExist}"></p>
+            </div>
+            <div>
+                <h1>-- 최신 EBOOK --</h1>
+                <ul class="flex">
+                    <li th:each="ebook : ${ebooks}">
+                        <a th:href="@{/book/{bookId}(bookId = ${ebook.bookId})}">
+                            <th:block th:each="file : ${ebookFiles}">
+                                <img class="thumb" th:if="${file.gid.equals(ebook.gid)}" th:src="${file.fileUrl}">
+                            </th:block>
+                            <p th:text="${ebook.bookNm}"></p>
+                        </a>
+                    </li>
+                </ul>
+                <p th:if="${ebooks.size() < 1}" th:text="#{book.notExist}"></p>
+            </div>
+        </div>
+    </section>
+</html>

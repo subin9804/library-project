@@ -3,64 +3,74 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{front/layouts/main}">
 
-    <section layout:fragment="content" th:object="${book}" id="detail">
-        <div>
-            <img width="200" height="200" src="https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"/>
+    <section class="main_content" layout:fragment="content" th:object="${book}" id="detail">
+        <div class="carousel">
+            <ul id="imgUl">
+                <li th:each="image: ${images}">
+                    <img class="bookImg" th:src="${image.fileUrl}"/>
+                </li>
+            </ul>
+
+            <!-- 오른쪽버튼-->
+            <div id="right" class="arrow" style="right: 0;">></div>
+            <!-- 왼쪽버튼 -->
+            <div id="left" class="arrow dn" style="left: 0;"><</div>
         </div>
-        <dl>
-            <dt>도서 ID</dt>
-            <dd th:text="*{bookId}"></dd>
-        </dl>
-        <dl>
-            <dt>도서명</dt>
-            <dd th:text="*{bookNm}"></dd>
-        </dl>
-        <dl>
-            <dt>도서 종류</dt>
-            <dd th:text="*{rentalType}"></dd>
-        </dl>
-        <dl>
-            <dt>저자</dt>
-            <dd th:text="*{author}"></dd>
-        </dl>
-        <dl>
-            <dt>춢판사</dt>
-            <dd th:text="*{publisher}"></dd>
-        </dl>
-        <dl>
-            <dt>세부사항</dt>
-            <dd th:text="*{description}"></dd>
-        </dl>
+        <div>
+            <dl>
+                <dt>도서 ID</dt>
+                <dd th:text="*{bookId}"></dd>
+            </dl>
+            <dl>
+                <dt>도서명</dt>
+                <dd th:text="*{bookNm}"></dd>
+            </dl>
+            <dl>
+                <dt>도서 종류</dt>
+                <dd th:text="*{rentalType}"></dd>
+            </dl>
+            <dl>
+                <dt>저자</dt>
+                <dd th:text="*{author}"></dd>
+            </dl>
+            <dl>
+                <dt>춢판사</dt>
+                <dd th:text="*{publisher}"></dd>
+            </dl>
+            <dl>
+                <dt>세부사항</dt>
+                <dd th:text="*{description}"></dd>
+            </dl>
 
-<!--        대여-->
-        <th:block th:if="*{status.toString()} == 'RETURN'">
-            <form method="post" th:action="@{/book/rent}">
-                <input type="hidden" th:value="*{bookId}" name="bookId">
+            <!--대여-->
+            <th:block th:if="*{status.toString()} == 'RETURN'">
+                <form method="post" th:action="@{/book/rent}">
+                    <input type="hidden" th:value="*{bookId}" name="bookId">
 
-                <button class="rented">
-                    <a sec:authorize="isAnonymous()" onclick="return alert('로그인이 필요합니다');" th:href="@{/user/login}">
-                        대여하기
-                    </a>
-                    <th:block sec:authorize="isAuthenticated()">대여하기</th:block>
-                </button>
-            </form>`
-        </th:block>
+                    <button class="rented">
+                        <a sec:authorize="isAnonymous()" onclick="return alert('로그인이 필요합니다');" th:href="@{/user/login}">
+                            대여하기
+                        </a>
+                        <th:block sec:authorize="isAuthenticated()">대여하기</th:block>
+                    </button>
+                </form>`
+            </th:block>
 
-<!--        반납-->
-        <th:block th:if="*{status.toString()} == 'RENT'">
-            <form method="post" th:action="@{/book/return}">
-                <input type="hidden" name="bookId" th:value="*{bookId}">
-                <input type="hidden" name="rentalNo" th:value="${rentalNo}">
-                <th:block sec:authorize="isAuthenticated()">
-                    <button th:if="${userId == session.userInfo.userId}" class="rented">반납하기</button>
-                    <button th:unless="${userId == session.userInfo.userId}" disabled>대여중</button>
-                </th:block>
-                <th:block sec:authorize="isAnonymous()">
-                    <button disabled>대여중</button>
-                </th:block>
+            <!--반납-->
+            <th:block th:if="*{status.toString()} == 'RENT'">
+                <form method="post" th:action="@{/book/return}">
+                    <input type="hidden" name="bookId" th:value="*{bookId}">
+                    <input type="hidden" name="rentalNo" th:value="${rentalNo}">
+                    <th:block sec:authorize="isAuthenticated()">
+                        <button th:if="${userId == session.userInfo.userId}" class="rented">반납하기</button>
+                        <button th:unless="${userId == session.userInfo.userId}" disabled>대여중</button>
+                    </th:block>
+                    <th:block sec:authorize="isAnonymous()">
+                        <button disabled>대여중</button>
+                    </th:block>
+                </form>
 
-            </form>
-
-        </th:block>
+            </th:block>
+        </div>
     </section>
 </html>

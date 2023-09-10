@@ -10,6 +10,7 @@ dl { display: flex; width: 100%; margin: 0; align-items: center; }
 dt { width: 130px;  }
 dd { width: calc(100% - 130px); padding: 0; margin: 0; }
 a { color:#222; text-decoration: none; }
+hr {margin: 0;}
 input[type="text"],
 input[type="password"],
 input[type="email"],
@@ -18,13 +19,13 @@ input[type="date"] { height: 35px; border: 1px solid #d5d5d5; padding: 0 20px; }
 textarea { border: 1px solid #d5d5d5; width: 100%; resize: none; padding: 20px; min-height: 100px; }
 select { height: 35px; border: 1px solid #d5d5d5; background: #fff; min-width: 130px; }
 input[type='radio'] { display: none; }
-input[type='radio']~label { display: inline-block; padding-left: 25px; padding-right: 15px; min-height: 20px; background:url("../images/common/radio-off.png") no-repeat left center; line-height: 20px; cursor: pointer; margin: 3px 0;}
-input[type='radio']:checked~label { background:url("../images/common/radio-on.png") no-repeat left center; }
+input[type='radio']~label { display: inline-block; padding-left: 25px; padding-right: 15px; min-height: 20px; background:url("../images/radio-off.png") no-repeat left center; line-height: 20px; cursor: pointer; margin: 3px 0;}
+input[type='radio']:checked~label { background:url("../images/radio-on.png") no-repeat left center; }
 input[type='radio']~label.standalone { padding: 0; height: 20px; width: 20px; }
 
 input[type='checkbox'] { display: none; }
-input[type='checkbox']~label { display: inline-block; padding-left: 25px; padding-right: 15px; min-height: 20px; background:url("../images/common/chk-off.png") no-repeat left center; background-size: 20px; line-height: 20px; cursor: pointer; margin: 3px 0; }
-input[type='checkbox']:checked~label { background:url("../images/common/chk-on.png") no-repeat left center; background-size: 20px; }
+input[type='checkbox']~label { display: inline-block; padding-left: 25px; padding-right: 15px; min-height: 20px; background:url("../images/chk-off.png") no-repeat left center; background-size: 20px; line-height: 20px; cursor: pointer; margin: 3px 0; }
+input[type='checkbox']:checked~label { background:url("../images/chk-on.png") no-repeat left center; background-size: 20px; }
 input[type='checkbox']~label.standalone { padding: 0; height: 20px; width: 20px; }
 
 input:read-only, textarea:read-only { background-color: #f8f8f8; }
@@ -39,7 +40,6 @@ select option:disabled { color: red; background-color: #f8f8f8; }
 /** 사이트 헤더 공통 S */
 header nav .inner { display: flex; justify-content: space-between; }
 #header {
-
     width: 100%;
     z-index: 10;
 }
@@ -75,7 +75,6 @@ header nav .inner { display: flex; justify-content: space-between; }
 /** 메인 영역 > side 부분 S */
 main{
     display: flex;
-    min-height: 900px;
 }
 main > aside{
     width: 200px;
@@ -83,7 +82,7 @@ main > aside{
     border-right: 2px solid #000;
 }
 main > aside a{
-    min-width: 120px;
+    min-width: 125px;
     display: block;
     padding: 25px 20px;
     text-align: center;
@@ -102,8 +101,7 @@ main > aside a.on *{
     background: #000;
     color: #fff;
 }
-
-main > section{
+main > .main_content{
     flex-grow: 1;
     padding: 20px;
     background: #fff;
@@ -115,12 +113,86 @@ main nav{
 main nav.sub_menus{
     margin-bottom: 20px;
 }
+#main {
+    width: 100%;
+}
 /**메인 영역  > side 부분 E */
+
+
+/** 메인 영역 > index */
+#banner {
+    min-width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+#bannerBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+}
+#bannerBox img {
+    position: absolute;
+    object-fit: cover;
+    height: 100%;
+    top: 0; left: 100%;
+    width: 100%;
+    transition: 0.2s;
+}
+.active {
+    left: 0 !important;
+}
+#notice {
+    padding: 20px;
+    font-size: 20px;
+}
+
+/** 홈화면 도서추천 그리드 */
+#reco {
+    padding: 20px;
+    text-align: center;
+}
+#reco div:last-of-type {
+    padding-top: 40px;
+}
+.flex {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+.flex li {
+    height: 235px;
+    width: 200px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    padding-top: 10px;
+}
+.flex li p {
+    margin: 0;
+    padding: 20px;
+    font-weight: bold;
+}
+@media(max-width: 1075px) {
+    .flex {
+        width: 590px;
+        margin: 0 auto;
+    }
+}
+
+.thumb {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20px;
+}
 
 /** 책 디테일 페이지 */
 #detail {
     text-align: center;
     min-width: 500px;
+    max-width: 900px;
 }
 #detail img {
     margin-top: 10px;
@@ -162,6 +234,10 @@ main nav.sub_menus{
     background-color: black;
     color: white;
 }
+#detail .rented:hover a {
+    background-color: black;
+    color: white;
+}
 
 /** 테이블 양식 */
 table {
@@ -197,3 +273,69 @@ th {
     padding-bottom: 1rem;
 }
 
+/** 도서 이미지 캐러셀,,! */
+.carousel {
+    width: 300px;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 5px 8px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.carousel ul {
+    display: flex;
+    width: 100%;
+    transition: 0.2s;
+}
+.bookImg {
+    width: 300px;
+    height: 250px;
+    object-fit: cover;
+}
+.arrow {
+     position: absolute;
+     top: 50%;
+     padding: 5px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+     background-color: rgba(0, 0, 0, 0.2);
+     color: white;
+     font-weight: bold;
+}
+
+@media(min-width: 1024px) {
+    #detail {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    #detail .carousel {
+        width: 300px;
+        height: 400px;
+    }
+    .bookImg {
+        width: 300px;
+        height: 400px;
+        object-fit: contain;
+    }
+}
+
+/** footer */
+footer {
+    border-top: 2px solid black;
+    padding: 20px;
+    text-align: center;
+
+}
+
+.footer-sns__list {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+footer > div {
+    padding: 20px 0;
+}

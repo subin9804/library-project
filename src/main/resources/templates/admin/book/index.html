@@ -15,8 +15,8 @@
                         <label for="check_all"></label>
                     </th>
                     <th width="150">도서ID</th>
-                    <th colspan="2">도서정보</th>
-                    <th width="150">도서종류</th>
+                    <th width="150">제목</th>
+                    <th width="150">도서분류</th>
                     <th width="150">저자</th>
                     <th width="150">출판사</th>
                     <th width="150">대여상태</th>
@@ -27,18 +27,17 @@
 
             <th:block th:if="${#lists.isEmpty(books)}">
                 <tr>
-                    <td colspan="7">등록된 도서가 없습니다.</td>
+                    <td colspan="7">...!등록된 도서가 없습니다!....</td>
                 </tr>
             </th:block>
             <th:block th:unless="${#lists.isEmpty(books)}">
-                <tr th:each="book, status : ${books}" th:object="${book}">
+                <tr th:each="book, status : ${books}" th:object= "${book}">
                     <td>
                         <input type="checkbox" name="bookId" th:value="*{bookId}" th:id="'bookId_' + ${status.index}">
                     </td>
                     <td th:text="*{bookId}"></td>
-                    <td>이미지</td>
-                    <td th:text="*{bookNm}"></td>
-                    <td></td>
+                    <td><a th:href="@{/book/{bookId}(bookId=*{bookId})}" th:text="*{bookNm}"></a></td>
+                    <td th:text="*{rentalType.toString()}"></td>
                     <td th:text="*{author}"></td>
                     <td th:text="*{publisher}"></td>
                     <td th:text="*{status}"></td>

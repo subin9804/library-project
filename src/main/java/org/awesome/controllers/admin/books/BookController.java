@@ -5,10 +5,12 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.awesome.commons.Pagination;
+import org.awesome.entities.FileInfo;
 import org.awesome.entities.RentalBook;
 import org.awesome.models.book.BookInfoService;
 import org.awesome.models.book.BookListService;
 import org.awesome.models.book.BookSaveService;
+import org.awesome.repositories.FileInfoRepository;
 import org.awesome.repositories.RentalBookRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ public class BookController {
     private final BookInfoService infoService;
     private final BookListService listService;
     private final RentalBookRepository bookRepository;
+    private final FileInfoRepository fileRepository;
     private final HttpSession session;
 
     @GetMapping
@@ -61,9 +64,13 @@ public class BookController {
         BookForm bookForm = infoService.get(bookId);
         bookForm.setMode("update");
 
+        // 파일리스트 불러오기
+        List<FileInfo> files = fileRepository.findByGid(bookForm.getGid());
+
         String[] addScript = { "ckeditor/ckeditor", "book/form" };
         model.addAttribute("addScript", addScript);
         model.addAttribute("bookForm", bookForm);
+        model.addAttribute("files", files);
         return "admin/book/update";
     }
 
@@ -80,6 +87,14 @@ public class BookController {
             }
         }
         saveService.save(bookForm);
+
+        // 파일 업로드 완료 및 메인 이미지 지정(location)
+        List<FileInfo> file = fileRepository.findByGidOrderByRegDtAsc(bookForm.getGid());
+        if(file != null || !file.isEmpty()) {
+            file.stream().forEach(s -> s.setDone(true));
+        }
+        fileRepository.saveAllAndFlush(file);
+        System.out.println(file);
         return "redirect:/admin/book";
     }
 

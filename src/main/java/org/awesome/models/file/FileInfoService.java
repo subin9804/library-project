@@ -91,6 +91,17 @@ public class FileInfoService {
         item.setFileUrl(fileUrl);
     }
 
+    public String getFileUrl(FileInfo file) {
+        /** 파일 url 세팅 (transient로 DB에 저장되지 않음) */
+        String extension = file.getExtension();
+        String fileName = extension == null || extension.isBlank() ? "" + file.getFileNo() : file.getFileNo() + "." + extension;
+        long folder = file.getFileNo() % 10L;
+
+        String fileUrl = request.getContextPath() + uploadUrl + folder + "/" + fileName;
+
+        return fileUrl;
+    }
+
     private String getFileName(long fileNo, String extension) {
         return extension == null || extension.isBlank() ? "" + fileNo : fileNo + "." + extension;
     }

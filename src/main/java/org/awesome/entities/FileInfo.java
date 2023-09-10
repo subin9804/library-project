@@ -34,10 +34,6 @@ public class FileInfo extends BaseUserEntity {
 
     private boolean done;    // 그룹 작업 완료 여부
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="userNo")
-    private User user;  // 파일을 올린 사용자
-
     @Transient
     private String filePath;    // 파일 업로드 경로
 

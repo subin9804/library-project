@@ -1,6 +1,7 @@
 package org.awesome.controllers.user;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -13,14 +14,14 @@ import org.awesome.repositories.RentalBookRepository;
 import org.awesome.repositories.RentalRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Log
@@ -33,6 +34,7 @@ public class MypageController {
     public final RentalRepository rentalRepository;
     public final HttpServletRequest request;
     private final RentalBookRepository bookRepository;
+    private final HttpServletResponse response;
 
     // 유저 프로필
     @GetMapping("/profile")
@@ -67,22 +69,38 @@ public class MypageController {
 
 
     // 대여기간 연장
-    @PostMapping("delay/{rentalNo}")
-    public void delay(@PathVariable long rentalNo, Model model) {
+    @GetMapping("delay/{rentalNo}")
+    public String delay(@PathVariable long rentalNo, Model model) {
         Rental rental = rentalRepository.findById(rentalNo).orElse(null);
 
         if(rental == null) {
             throw new CommonException("대여하지 않은 도서입니다.");
         }
 
-        if(rental.getDelayCnt() > 2) {
+        if(rental.getDelayCnt() > 1) {
             throw new CommonException("대여 연장 횟수를 초과하였습니다.");
         } else {
             rental.setDelayCnt(rental.getDelayCnt() + 1);
-            rental.setRentDt(LocalDate.now().plusDays(7));
+            rental.setReturnDt(rental.getReturnDt().plusDays(7));
+
+            System.out.println("plusDays: " + rental.getReturnDt().plusDays(7));
+            rentalRepository.saveAndFlush(rental);
         }
 
+        return "redirect:/mypage/rent";
+    }
 
+    @ExceptionHandler(CommonException.class)
+    public String errorHandler(CommonException e, Model model) {
+        e.printStackTrace();
+
+        String message = e.getMessage();
+        HttpStatus status = e.getStatus();
+        response.setStatus(status.value());
+
+        String script = String.format("alert('%s');history.back();", message);
+        model.addAttribute("script", script);
+        return "commons/execute_script";
     }
 
 }

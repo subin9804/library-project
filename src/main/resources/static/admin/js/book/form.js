@@ -11,24 +11,24 @@ window.addEventListener("DOMContentLoaded", function() {
 * @param files : 업로드 완료된 파일 목록
 */
 function fileUploadCallback(files) {
-    console.log(files);
+    console.log(files)
     if(!files || files.length == 0) return;
-    const uploadedImages = document.getElementById("imgContainer");
+    const attachImages = document.getElementById("attach_images");
 
     const tpl = document.getElementById("tpl_image1").innerHTML;
 
     const domParser = new DOMParser();
     for(const file of files) {
-        let html = tpl;
-        let target = uploadedImages;
-        const location = file.location;
 
-        html = html.replace(/\[id\]/g, file.id)
-                .replace(/\[fileName\]/g, file.fileName)
-                .replace(/\[url\]/g, file.fileUrl);
-    console.log(html)
+        let html = tpl;
+        let target=attachImages;
+        const location = file.location;
+        html = html.replace(/\[id\]/g, file.fileNo)
+                .replace(/\[url\]/g, file.fileUrl)
+                .replace(/\[fileName\]/g, file.fileName);
+
         const dom = domParser.parseFromString(html, "text/html");
-        const el = dom.querySelector(".image_main");
+        const el = dom.querySelector(".file_images");
 
         if(target) target.appendChild(el);
     }
@@ -41,6 +41,7 @@ function fileUploadCallback(files) {
 function fileDeleteCallback(fileId) {
     if(!fileId) return;
 
-    const el = document.getElementById(`file_${fileId}`);
-    if(el) el.parentElement.removeChild(el);
+    console.log("delete" + fileId);
+//    const el = document.getElementById(`file_${fileId}`);
+//    if(el) el.parentElement.removeChild(el);
 }

@@ -35,11 +35,36 @@ commonLib.fileManager = {
             formData.append("imageOnly", imageOnly ? true : false);
 
             if(location) formData.append("location", location.trim());
+            for (let value of formData.values()) {
+                  console.log(value);
+            }
 
             ajaxLoad("POST", "/file/upload", formData, 'json')
             .then((res) => {
                 if(typeof fileUploadCallback == 'function') {
-                    fileUploadCallback(res);
+                    fileUploadCallback(res.data);
+                    console.log(res);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+        } catch (err) {
+            alert(err.message);
+            console.error(err);
+        }
+    },
+
+    getFiles(gid) {
+        const { ajaxLoad } = commonLib;
+
+        try {
+            ajaxLoad("GET", "/file/" + gid, null, 'json')
+            .then((res) => {
+                if(typeof fileUploadCallback == 'function') {
+                    fileUploadCallback(res.data);
+                    console.log(res);
                 }
             })
             .catch((err) => {
@@ -54,22 +79,34 @@ commonLib.fileManager = {
 }
 
 window.addEventListener("DOMContentLoaded", function() {
-    const uploadBtn = document.getElementById("imgbtn");
-    const fileEl = document.getElementById("imgInput");
+    const attachFiles = document.getElementsByClassName("attachFiles");
+    const fileEl = document.getElementById("file");
 
-    if(fileEl) {
-        uploadBtn.addEventListener("click", function(e) {
-            e.preventDefault();
-            fileEl.value="";
-            fileEl.click();
-            const dataset = this.dataset;
-            fileEl.location = dataset.location;
-            fileEl.imageOnly = dataset.imageOnly === 'true' ? true : false;
-        });
+    if (fileEl) {
+        for (const el of attachFiles) {
+            el.addEventListener("click", function() {
+                fileEl.value = "";
+                fileEl.click();
+                const dataset = this.dataset;
+                fileEl.location = dataset.location;
+                fileEl.imageOnly = dataset.imageOnly === 'true' ? true : false;
+            });
+        }
 
         fileEl.addEventListener("change", function(e) {
             const files = e.target.files;
+            console.log(files);
             commonLib.fileManager.upload(files, fileEl.location, fileEl.imageOnly);
         });
+    }
+
+    /** 업데이트 시 존재하는 이미지 파일 띄우기 */
+    let mode = document.getElementById("mode") || "";
+    let gid = document.getElementById("gid");
+
+    if(mode.value === "update") {
+        gid = gid.value.trim();
+
+        commonLib.fileManager.getFiles(gid);
     }
 });
