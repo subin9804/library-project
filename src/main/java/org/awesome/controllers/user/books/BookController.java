@@ -49,7 +49,7 @@ public class BookController {
         model.addAttribute("bookSearch", bookSearch);
         model.addAttribute("pagination", pagination);
         model.addAttribute("books", books);
-        return "admin/book/index";
+        return "front/books/index";
     }
 
     // 상세페이지

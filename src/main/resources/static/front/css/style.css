@@ -342,7 +342,8 @@ th {
     background-color: black;
     color: white;
 }
-#profilePhoto+span {
+
+#defalutImg+label {
     display: inline-block;
     background-color: honeydew;
     white-space: nowrap;

@@ -8,9 +8,9 @@
             <dl>
                 <dt>프로필 사진</dt>
                 <dd id="photoContainer">
-                    <input type="file" th:field="*{photo}" id="profilePhoto">
-                    <input type="checkbox" id="defalutImg" th:field="*{defaultImg}">
-                    <label for="defalutImg">기본이미지 사용</label>
+                    <input type="file" th:field="*{photo}" id="photo" name="photo">
+                    <input type="checkbox" name="defaultImg" th:value="true" th:field="*{defaultImg}" id="defaultImg">
+                    <label for="defaultImg">기본이미지</label>
                 </dd>
             </dl>
             <dl>

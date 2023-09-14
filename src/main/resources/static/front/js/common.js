@@ -49,10 +49,22 @@ window.addEventListener("DOMContentLoaded", function() {
 
 
     /** 프로필 수정 시 기본이미지로 교체 */
-    const defaultBtn = document.getElementById("defalutImg");
-    const profilePhoto = document.getElementById("profilePhoto");
-    defaultBtn.addEventListener("click", function(e) => {
-        profilePhoto.setAttribute("disabled", true);
+    const defaultBtn = document.getElementById("defaultImg");
+    const photo = document.getElementById("photo");
 
-    })
+    if(defaultBtn){
+        defaultBtn.addEventListener("click", function() {
+            console.log(defaultBtn)
+            console.log(photo)
+
+
+            if(defaultBtn.checked) {
+                photo.setAttribute("disabled", true);
+            }
+            else if(!defaultBtn.checked) {
+                photo.removeAttribute("disabled");
+                defaultBtn.value = "false";
+            }
+        })
+    }
 });

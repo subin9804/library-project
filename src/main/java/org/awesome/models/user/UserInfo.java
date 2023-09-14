@@ -17,7 +17,7 @@ public class UserInfo implements UserDetails {
     private String userNm;
     private MultipartFile photo;
 
-    private boolean defaultImg = false;
+    private boolean defaultImg;
     private Collection<GrantedAuthority> authorities;
 
     @Override

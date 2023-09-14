@@ -45,20 +45,23 @@ public class ProfileEditService {
         /* 프로필 이미지 업로드 설정 */
         String fileUrl;
         System.out.println("사진: " + userInfo.getPhoto());
-        if(userInfo.isDefaultImg()) {
+        if(userInfo.isDefaultImg() != false) {
             userInfo.setPhoto(null);
             fileUrl = "/images/no-image.png";
-        } else if(!userInfo.getPhoto().getOriginalFilename().contains(".")) {  // 새로운 파일을 업로드하지 않으면 확장자가 지워진 채로 요청하므로
-            fileUrl = user.getPhoto();                                  // .을 포함하고 있지 않다면 fileUrl을 그대로 가지고감
         } else {
-            if (userInfo.getPhoto() == null) {
-                fileUrl = "/images/no-image.png";
+            if(!userInfo.getPhoto().getOriginalFilename().contains(".")) {  // 새로운 파일을 업로드하지 않으면 확장자가 지워진 채로 요청하므로
+                fileUrl = user.getPhoto();                                  // .을 포함하고 있지 않다면 fileUrl을 그대로 가지고감
             } else {
-                MultipartFile file = userInfo.getPhoto();   // 업로드할 프로필포토
-                long userNo = userInfo.getUserNo();             // 파일 이름으로 쓸 유저넘버
-                fileUrl = savePhoto(file, userNo);
+                if (userInfo.getPhoto() == null) {
+                    fileUrl = "/images/no-image.png";
+                } else {
+                    MultipartFile file = userInfo.getPhoto();   // 업로드할 프로필포토
+                    long userNo = userInfo.getUserNo();             // 파일 이름으로 쓸 유저넘버
+                    fileUrl = savePhoto(file, userNo);
+                }
             }
         }
+
 
         /* 비밀번호 해시처리 */
         String hash;
@@ -74,6 +77,7 @@ public class ProfileEditService {
         user.setUserNm(userInfo.getUserNm());
         user.setUserPw(hash);
         user.setPhoto(fileUrl);
+        userInfo.setDefaultImg(false);
 
         System.out.println("사진: " + user);
         session.setAttribute("userInfo", userInfo);
