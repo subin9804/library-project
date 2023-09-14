@@ -23,7 +23,7 @@
         <div id="reco">
             <div>
                 <h1>-- 최신 도서 --!</h1>
-                <ul class="recent">
+                <ul th:if="${books.size() >= 1}" class="recent">
                     <li th:each="book : ${books}">
                         <a th:href="@{/book/{bookId}(bookId = ${book.bookId})}">
                             <th:block th:each="file : ${bookFiles}">
@@ -34,17 +34,17 @@
                         </a>
                     </li>
                     <li th:if="${books.size() >= 1}">
-                        <a href="#">
+                        <a th:href="@{/book}">
                             <p style="line-height: 230px;">총 도서목록 보러가기</p>
                         </a>
                     </li>
                 </ul>
-                <
+
                 <p th:if="${books.size() < 1}" th:text="#{book.notExist}"></p>
             </div>
             <div>
                 <h1>-- 최신 EBOOK --</h1>
-                <ul class="recent">
+                <ul th:if="${ebooks.size() >= 1}" class="recent">
                     <li th:each="ebook : ${ebooks}">
                         <a th:href="@{/book/{bookId}(bookId = ${ebook.bookId})}">
                             <th:block th:each="file : ${ebookFiles}">
@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     <li th:if="${ebooks.size() >= 1}">
-                        <a href="#">
+                        <a th:href="@{/book}">
                             <p style="line-height: 230px;">총 도서목록 보러가기</p>
                         </a>
                     </li>

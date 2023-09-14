@@ -164,7 +164,6 @@ main nav.sub_menus{
     overflow: hidden;
     height: 280px;
     padding: 10px;
-    border: 1px solid red;
     position: relative;
 }
 .recent li {
@@ -248,15 +247,16 @@ main nav.sub_menus{
 /** 테이블 양식 */
 table {
     width: 100%;
-    min-width: 500px;
+    min-width: 560px;
     text-align: center;
     padding: 1rem;
     margin-top: 2rem;
+    border-collapse: collapse;
 }
-table tr {
+tr {
     padding: 0.5rem 0 0.5rem 0;
+    border-bottom: 1px solid #ddd;
 }
-
 table button {
     border-radius: 5px;
     border: 1px solid;
@@ -277,6 +277,11 @@ table button:disabled {
 th {
     border-bottom: 1px solid #000;
     padding-bottom: 1rem;
+}
+table .thumb {
+    width: 130px;
+    height: 150px;
+    margin-top: 20px
 }
 
 /** 도서 이미지 캐러셀,,! */

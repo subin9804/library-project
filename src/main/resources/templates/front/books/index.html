@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{front/layouts/main}">
+
 <section class="main_content" layout:fragment="content">
-    <nav th:replace="~{admin/book/_submenus::menus}"></nav>
+    <h1>도서 검색</h1>
+
+
     <th:block th:replace="~{commons/search::search}"></th:block>
 
     <table class="table_rows">
@@ -14,7 +18,7 @@
                 <label for="check_all"></label>
             </th>
             <th width="150">도서ID</th>
-            <th width="150" colspan="2">제목</th>
+            <th width="150">제목</th>
             <th width="150">도서분류</th>
             <th width="150">저자</th>
             <th width="150">출판사</th>
@@ -35,15 +39,37 @@
                     <input type="checkbox" name="bookId" th:value="*{bookId}" th:id="'bookId_' + ${status.index}">
                 </td>
                 <td th:text="*{bookId}"></td>
-                <td><a th:href="@{/book/{bookId}(bookId=*{bookId})}" th:text="*{bookNm}"></a></td>
+                <td>
+                    <a th:href="@{/book/{bookId}(bookId = ${book.bookId})}">
+                        <th:block th:each="file : ${files}">
+                            <img class="thumb" th:if="${file.gid.equals(book.gid)}" th:src="${file.fileUrl}">
+                        </th:block>
+                        <p th:text="*{bookNm}"></p>
+                    </a>
+                </td>
                 <td th:text="*{rentalType.toString()}"></td>
                 <td th:text="*{author}"></td>
                 <td th:text="*{publisher}"></td>
                 <td th:text="*{status}"></td>
                 <td>
-                    <a th:href="@{/admin/book/update/{id}(id=*{bookId})}" class="btn1">수정</a>
-                    <a th:if="*{status.toString() == 'RENT'}" th:href="@{/admin/book/delete/{id}(id=*{bookId})}" class="btn1" th:onclick="confirm('대여중인 도서입니다. 정말 삭제하시겠습니까?');">삭제</a>
-                    <a th:if="*{status.toString() == 'RETURN'}" th:href="@{/admin/book/delete/{id}(id=*{bookId})}" class="btn1" th:onclick="confirm('정말 삭제하시겠습니까?');">삭제</a>
+                    <th:block th:if="*{status.toString()} == 'RETURN'">
+                        <form method="post" th:action="@{/book/rent}">
+                            <input type="hidden" th:value="*{bookId}" name="bookId">
+
+                            <button class="rented">
+                                <a sec:authorize="isAnonymous()" onclick="return alert('로그인이 필요합니다');" th:href="@{/user/login}">
+                                    대여하기
+                                </a>
+                                <th:block sec:authorize="isAuthenticated()">대여하기</th:block>
+                            </button>
+                        </form>`
+                    </th:block>
+
+                    <!--반납-->
+                    <th:block th:if="*{status.toString()} == 'RENT'">
+                        <a th:href="@{/book/{bookId}(bookId = ${book.bookId})}"><button>반납하기</button></a>
+
+                    </th:block>
                 </td>
             </tr>
         </th:block>

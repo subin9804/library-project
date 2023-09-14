@@ -10,6 +10,6 @@ window.addEventListener("DOMContentLoaded", function () {
     resetBtn.addEventListener("click", () => {
         inputPw.value = "11111111";
         console.log(inputPw);
-        p.innerText = "비밀번호가 "11111111"로 변경되었습니다.";
+        p.innerText = "비밀번호가 '11111111'로 변경되었습니다.";
     })
 })
