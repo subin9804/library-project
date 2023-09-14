@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
  */
 @Data
 public class UserJoin {
+    private String mode = "join";   // join / edit
 
     @NotBlank
     @Size(min=6)
@@ -32,6 +33,8 @@ public class UserJoin {
 
     @AssertTrue
     private boolean termsAgree; // 회원가입 약관 동의
+
+    private String photo;
 
     // User 엔티티로 변환
     public static User of(UserJoin userJoin) {

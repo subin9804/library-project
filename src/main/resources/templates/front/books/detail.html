@@ -3,11 +3,11 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{front/layouts/main}">
 
-    <section class="main_content" layout:fragment="content" th:object="${book}" id="detail">
+    <section class="main_content detail" layout:fragment="content" th:object="${book}">
         <div class="carousel">
             <ul id="imgUl">
                 <li th:each="image: ${images}">
-                    <img class="bookImg" th:src="${image.fileUrl}"/>
+                    <img class="bookImg image" th:src="${image.fileUrl}"/>
                 </li>
             </ul>
 

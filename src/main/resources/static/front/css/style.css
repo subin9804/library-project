@@ -155,24 +155,30 @@ main nav.sub_menus{
 #reco div:last-of-type {
     padding-top: 40px;
 }
-.flex {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+#reco div {
+    width: 90%;
+    margin: 0 auto;
 }
-.flex li {
-    height: 235px;
+#reco ul {
+    white-space: nowrap;
+    overflow: hidden;
+    height: 280px;
+    padding: 10px;
+    border: 1px solid red;
+    position: relative;
+}
+.recent li {
+    height: 250px;
     width: 200px;
+    display: inline-block;
     border: 2px solid #ddd;
     border-radius: 20px;
     padding-top: 10px;
+    vertical-align: middle;
 }
-.flex li p {
+.recent li p {
     margin: 0;
-    padding: 20px;
-    font-weight: bold;
+    padding-top: 10px;
 }
 @media(max-width: 1075px) {
     .flex {
@@ -182,23 +188,23 @@ main nav.sub_menus{
 }
 
 .thumb {
-    width: 100%;
+    width: 90%;
     height: 180px;
     object-fit: cover;
     border-radius: 20px;
 }
 
 /** 책 디테일 페이지 */
-#detail {
+.detail {
     text-align: center;
     min-width: 500px;
     max-width: 900px;
 }
-#detail img {
+.detail img {
     margin-top: 10px;
     margin-bottom: 20px;
 }
-#detail dl{
+.detail dl{
     width: 500px;
     display: flex;
     margin: 10px auto;
@@ -207,34 +213,34 @@ main nav.sub_menus{
     border-bottom: 1px solid #ccc;
 }
 
-#detail dl dt{
+.detail dl dt{
     padding: 0.5rem;
     background-color: #ccc;
     border-radius: 15px;
     width: 150px;
 
 }
-#detail dl dd{
+.detail dl dd{
     text-align: left;
     width: 100%;
     padding: 0 20px;
 }
-#detail button {
+.detail button {
     background-color: white;
     border-radius: 5px;
     border: 1px solid black;
     padding: 0.5rem;
 }
-#detail button:disabled {
+.detail button:disabled {
     color: #777;
     background-color: #ccc;
     border: 1px solid #ccc;
 }
-#detail .rented:hover {
+.detail .rented:hover {
     background-color: black;
     color: white;
 }
-#detail .rented:hover a {
+.detail .rented:hover a {
     background-color: black;
     color: white;
 }
@@ -292,6 +298,7 @@ th {
     height: 250px;
     object-fit: cover;
 }
+
 .arrow {
      position: absolute;
      top: 50%;
@@ -320,6 +327,40 @@ th {
         height: 400px;
         object-fit: contain;
     }
+}
+/* 프로필 */
+.profilePhoto {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+.detail .editBtn:hover {
+    background-color: black;
+    color: white;
+}
+.detail .editBtn:hover a {
+    background-color: black;
+    color: white;
+}
+#profilePhoto+span {
+    display: inline-block;
+    background-color: honeydew;
+    white-space: nowrap;
+    height: 24px;
+    padding: 5px;
+    font-size: 11px;
+    border-radius: 15px
+}
+.edit button {
+    padding: 5px;
+    background-color: white;
+    border: 1px solid black;
+    margin: 20px auto;
+    display: block;
+}
+.edit button:hover {
+    color: white;
+    background-color: black;
 }
 
 /** footer */

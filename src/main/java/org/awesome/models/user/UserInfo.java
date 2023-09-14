@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 
@@ -12,8 +13,11 @@ public class UserInfo implements UserDetails {
     private Long userNo;
     private String userId;
     private String userPw;
+    private String userPwCk;
     private String userNm;
+    private MultipartFile photo;
 
+    private boolean defaultImg = false;
     private Collection<GrantedAuthority> authorities;
 
     @Override

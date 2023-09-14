@@ -1,30 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <dl th:fragment="edit">
-        <dl>
-            <dt>도서 ID</dt>
-            <dd th:text="*{bookId}"></dd>
-        </dl>
-        <dl>
-            <dt>도서명</dt>
-            <dd th:text="*{bookNm}"></dd>
-        </dl>
-        <dl>
-            <dt>도서 종류</dt>
-            <dd th:text="*{rentalType}"></dd>
-        </dl>
-        <dl>
-            <dt>저자</dt>
-            <dd th:text="*{author}"></dd>
-        </dl>
-        <dl>
-            <dt>춢판사</dt>
-            <dd th:text="*{publisher}"></dd>
-        </dl>
-        <dl>
-            <dt>세부사항</dt>
-            <dd th:text="*{description}"></dd>
-        </dl>
-    </dl>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{front/layouts/main}">
 
+    <section class="main_content" layout:fragment="content">
+        <form method="post" class="edit" th:action="@{/mypage/edit}" autocomplete="off" enctype="multipart/form-data" th:object="${userInfo}">
+            <dl>
+                <dt>프로필 사진</dt>
+                <dd id="photoContainer">
+                    <input type="file" th:field="*{photo}" id="profilePhoto">
+                    <input type="checkbox" id="defalutImg" th:field="*{defaultImg}">
+                    <label for="defalutImg">기본이미지 사용</label>
+                </dd>
+            </dl>
+            <dl>
+                <dt>회원번호</dt>
+                <dd>
+                    <p th:text="*{userNo}" th:field="*{userNo}"></p>
+                    <input type="hidden" th:field="*{userNo}">
+                </dd>
+            </dl>
+            <dl>
+                <dt>회원 ID</dt>
+                <dd>
+                    <input type="text" th:field="*{userId}">
+                </dd>
+            </dl>
+            <dl>
+                <dt>회원이름</dt>
+                <dd>
+                    <input type="text" th:field="*{userNm}">
+                </dd>
+            </dl>
+            <dl>
+                <dt>비밀번호</dt>
+                <dd>
+                    <input type="text" th:field="*{userPw}">
+                </dd>
+            </dl>
+            <dl>
+                <dt>비밀번호 확인</dt>
+                <dd>
+                    <input type="text" th:field="*{userPwCk}">
+                </dd>
+            </dl>
+            <button type="submit" class="editBtn">수정 완료</button>
+        </form>
+    </section>
 </html>

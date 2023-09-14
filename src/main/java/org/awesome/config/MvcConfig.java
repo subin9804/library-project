@@ -25,6 +25,10 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(fileUploadUrl + "**")
                 .addResourceLocations("file:///" + fileUploadPath);
+
+        /* '/images/**'로 호출하는 자원은 '/static/images/**' 폴더 아래에서 찾는다. */
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("classpath:/static/front/images/");
     }
 
     @Bean

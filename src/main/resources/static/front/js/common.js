@@ -46,5 +46,13 @@ window.addEventListener("DOMContentLoaded", function() {
 
         })
     }
-});
 
+
+    /** 프로필 수정 시 기본이미지로 교체 */
+    const defaultBtn = document.getElementById("defalutImg");
+    const profilePhoto = document.getElementById("profilePhoto");
+    defaultBtn.addEventListener("click", function(e) => {
+        profilePhoto.setAttribute("disabled", true);
+
+    })
+});

@@ -8,19 +8,19 @@ import lombok.extern.java.Log;
 import org.awesome.commons.CommonException;
 import org.awesome.commons.Pagination;
 import org.awesome.entities.Rental;
+import org.awesome.entities.User;
 import org.awesome.models.rental.RentalService;
+import org.awesome.models.user.ProfileEditService;
 import org.awesome.models.user.UserInfo;
-import org.awesome.repositories.RentalBookRepository;
 import org.awesome.repositories.RentalRepository;
+import org.awesome.repositories.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,22 +33,57 @@ public class MypageController {
     public final RentalService rentalService;
     public final RentalRepository rentalRepository;
     public final HttpServletRequest request;
-    private final RentalBookRepository bookRepository;
     private final HttpServletResponse response;
+    private final UserRepository userRepository;
+    private final ProfileEditService editService;
+    private final PasswordEncoder encoder;
 
     // 유저 프로필
-    @GetMapping("/profile")
+    @GetMapping
     public String profile(HttpSession session, Model model) {
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        User user = userRepository.findById(userInfo.getUserNo()).orElse(null);
 
-        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("user", user);
+
         return "front/mypage/profile";
     }
 
     // 유저 프로필 수정
-    public String editProfile() {
+    @GetMapping("/edit")
+    public String editProfile(HttpSession session, Model model) {
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        boolean isChecked = (boolean) session.getAttribute("isChecked");
 
-        return "redirect:/front/mypage/profile";
+        if(isChecked != true) {
+            return "front/mypage/password";
+        }
+
+        userInfo.setUserPw("");
+        userInfo.setUserPwCk("");
+        model.addAttribute("userInfo", userInfo);
+
+        return "front/mypage/profileEdit";
+    }
+
+    @PostMapping("/password")
+    public String password(HttpSession session, String password) {
+        System.out.println(password);
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        User user = userRepository.findById(userInfo.getUserNo()).orElse(null);
+
+        if(encoder.matches(password, user.getUserPw())) {
+            session.setAttribute("isChecked", true);
+            return "redirect:/mypage/edit";
+        } else throw new CommonException("비밀번호가 일치하지 않습니다.");
+    }
+
+    @PostMapping("/edit")
+    public String editPs(HttpSession session, UserInfo userInfo) {
+        editService.editProfile(session, userInfo);
+
+        session.setAttribute("isChecked", false);
+        return "redirect:/mypage";
     }
 
 

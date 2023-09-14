@@ -27,10 +27,10 @@ public class MainController {
     public String Index(Model model) {
         List<RentalBook> books = bookRepository.findByRentalTypeOrderByRegDtDesc(RentalType.PAPER);
         List<RentalBook> ebooks = bookRepository.findByRentalTypeOrderByRegDtDesc(RentalType.EBOOK);
-        // 최근 등록된 도서 4개와 gid가 일치하는 이미지파일
-        if(books.size() > 4) {
+        // 최근 등록된 도서 6개와 gid가 일치하는 이미지파일
+        if(books.size() > 6) {
             List<RentalBook> recentBooks = new ArrayList<>();
-            for(int i = 0; i < 4; i++) {
+            for(int i = 0; i < 6; i++) {
                 recentBooks.add(books.get(i));
             }
             books = recentBooks;
@@ -50,10 +50,10 @@ public class MainController {
         model.addAttribute("books", books);
         model.addAttribute("bookFiles", bookFiles);
 
-        // 최근 등록된 ebook도서 4개와 gid가 일치하는 이미지파일
-        if(ebooks.size() > 4) {
+        // 최근 등록된 ebook도서 6개와 gid가 일치하는 이미지파일
+        if(ebooks.size() > 6) {
             List<RentalBook> recentEbooks = new ArrayList<>();
-            for(int i = 0; i < 4; i++) {
+            for(int i = 0; i < 6; i++) {
                 recentEbooks.add(books.get(i));
             }
             ebooks = recentEbooks;

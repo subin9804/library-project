@@ -44,18 +44,4 @@ public class JoinController {
         return "redirect:/user/login"; // 회원가입 성공시 -> 로그인 페이지 이동
     }
 
-    // 회원정보 수정 - GET /user/사용자 ID
-    @GetMapping("/{userId}/edit")
-    public String edit(@PathVariable String userId) {
-
-        return "user/edit";
-    }
-
-    // 회원정보 수정 PATCH /user
-    @PatchMapping
-    public String editPs() {
-
-        return "redirect:/mypage"; // 회원정보 수정 후 마이페이지 이동
-    }
-
 }

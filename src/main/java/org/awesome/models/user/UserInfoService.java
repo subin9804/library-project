@@ -34,6 +34,7 @@ public class UserInfoService implements UserDetailsService {
                 .userId(user.getUserId())
                 .userNm(user.getUserNm())
                 .userPw(user.getUserPw())
+                .photo(null)
                 .authorities(authorities) // 사용자 권한 설정
                 .build();
     }

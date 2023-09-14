@@ -1,5 +1,6 @@
 package org.awesome.models.user;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.awesome.constants.UserType;
 import org.awesome.controllers.user.UserJoin;
@@ -16,8 +17,10 @@ public class UserJoinService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public void join(UserJoin join){
+    private final HttpServletRequest request;
 
+    public void join(UserJoin join){
+        String photo = "/images/no-image.png";
         String hash = passwordEncoder.encode(join.getUserPw());
 
         User user = User.builder()
@@ -25,6 +28,7 @@ public class UserJoinService {
                 .userPw(hash)
                 .userType(UserType.USER)
                 .userNm(join.getUserNm())
+                .photo(photo)
                 .build();
 
         repository.saveAndFlush(user);

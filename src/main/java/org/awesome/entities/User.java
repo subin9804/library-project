@@ -19,6 +19,8 @@ public class User extends BaseEntity {
     private String userPw;
     @Column(length=45, nullable = false)
     private String userNm;
+    @Column(length = 70, nullable = false)
+    private String photo;
 
     @Enumerated(EnumType.STRING)
     private UserType userType = UserType.USER;
