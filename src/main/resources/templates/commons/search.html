@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="search">
-
-        <form name="searchForm" method="get" th:action="@{/admin/book}" th:object="${bookSearch}">
-
             <select name="sopt">
                 <option value=null th:field="*{sopt}" selected>전체</option>
                 <option value="bookNm" th:field="*{sopt}">제목</option>
@@ -22,7 +19,6 @@
             <label for="rentalStatus">대여중인 도서 제외</label>
 
             <input type="text" th:field="*{skey}"/>
-            <button type="submit">검색</button>
-        </form>
+            <button type="submit" class="btn1">검색</button>
     </th:block>
 </html>

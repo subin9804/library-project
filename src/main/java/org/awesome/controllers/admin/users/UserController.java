@@ -8,9 +8,11 @@ import org.awesome.commons.CommonException;
 import org.awesome.commons.Pagination;
 import org.awesome.constants.RentalStatus;
 import org.awesome.entities.Rental;
+import org.awesome.entities.RentalBook;
 import org.awesome.entities.User;
 import org.awesome.models.user.UserEditService;
 import org.awesome.models.user.UserListService;
+import org.awesome.repositories.RentalBookRepository;
 import org.awesome.repositories.RentalRepository;
 import org.awesome.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -21,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller("adminUserController")
@@ -31,6 +34,7 @@ public class UserController {
     private final UserListService userListService;
     private final UserEditService userEditService;
     private final UserRepository userRepository;
+    private final RentalBookRepository bookRepository;
     private final RentalRepository rentalRepository;
     private final HttpServletResponse response;
     private final HttpServletRequest request;
@@ -52,6 +56,7 @@ public class UserController {
     @GetMapping("/edit/{userNo}")
     public String editUser(@PathVariable Long userNo, Model model) {
         User user = userRepository.findById(userNo).orElseGet(User::new);
+
         UserListForm userListForm = null;
         if (user != null) {
             userListForm = new ModelMapper().map(user, UserListForm.class);
@@ -84,18 +89,23 @@ public class UserController {
 
     // user 삭제
     @GetMapping("/delete/{userNo}")
-    public String deleteUser(@PathVariable Long userNo){
+    public String deleteUser(@PathVariable Long userNo, Model model){
         User user = userRepository.findById(userNo).orElse(null);
-        List<Rental> books = rentalRepository.findAllByUser(user);
-        boolean haveToReturn = false;
+        List<Rental> rentals = rentalRepository.findByUser(user);
 
-        for(Rental book : books) {
-            if(book.getStatus() == RentalStatus.RENT) {
-                haveToReturn = true;
+        // 삭제될 유저가 빌린 도서들을 모두 반납처리
+        for(Rental rental : rentals) {
+            if(rental.getStatus() == RentalStatus.RENT) {
+                RentalBook book =  bookRepository.findById(rental.getBook().getBookId()).orElse(null);
+
+                rental.setReturnDt(LocalDate.now());
+                rental.setStatus(RentalStatus.RETURN);
+
+                book.setStatus(RentalStatus.RETURN);
+
+                rentalRepository.saveAndFlush(rental);
+                bookRepository.saveAndFlush(book);
             }
-        }
-        if(haveToReturn) {
-            throw new CommonException("반납하지 않은 도서가 있습니다.", HttpStatus.BAD_REQUEST);
         }
 
         if (user != null) {

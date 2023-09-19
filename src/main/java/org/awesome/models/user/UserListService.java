@@ -3,7 +3,6 @@ package org.awesome.models.user;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.awesome.controllers.admin.users.UserSearch;
-import org.awesome.controllers.admin.users.UserSearch;
 import org.awesome.entities.User;
 import org.awesome.repositories.UserRepository;
 import org.springframework.data.domain.Page;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("userList")
 @RequiredArgsConstructor
 public class UserListService {
 
@@ -36,6 +35,4 @@ public class UserListService {
     public Page<User> getPage() {
         return data;
     }
-
-
 }

@@ -25,7 +25,7 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserType userType = UserType.USER;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.DETACH)
     private List<Rental> rental;
 
 }

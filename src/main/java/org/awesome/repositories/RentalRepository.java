@@ -12,7 +12,8 @@ import java.util.List;
 
 public interface RentalRepository extends JpaRepository<Rental, Long> {
 
-    public List<Rental> findAllByUser(User user);
+    public List<Rental> findByUserOrderByRentDtDesc(User user);
+    public List<Rental> findByUser(User user);
     public List<Rental> findAllByBook(RentalBook book);
 
 

@@ -3,20 +3,24 @@
       <th:block th:fragment="user_form">
           <ul class="user_form" th:object="${userJoin}">
               <li class="rows">
-                  <input type="text" name="userId" th:field="*{userId}" th:placeholder="#{userId}">
+                  <label for="userId">아이디</label>
+                  <input type="text" id="userId" name="userId" th:field="*{userId}" th:placeholder="#{userId}">
                   <div class="error" th:each="err : ${#fields.errors('userId')}" th:text="${err}"></div>
               </li>
               <li class="rows">
-                  <input type="password" name="userPw" th:field="*{userPw}" th:placeholder="#{userPw}">
+                  <label for="userPw">비밀번호</label>
+                  <input type="password" id="userPw" name="userPw" th:field="*{userPw}" th:placeholder="#{userPw}">
                   <div class="error" th:each="err : ${#fields.errors('userPw')}" th:text="${err}"></div>
               </li>
               <li class="rows">
-                  <input type="password" name="userPwCk" th:field="*{userPwCk}" th:placeholder="#{userPwCk}">
+                  <label for="userPwCk">비밀번호 확인</label>
+                  <input type="password" id="userPwCk" name="userPwCk" th:field="*{userPwCk}" th:placeholder="#{userPwCk}">
                   <div class="error" th:each="err : ${#fields.errors('userPwCk')}" th:text="${err}"></div>
               </li>
 
               <li class="rows">
-                  <input type="text" name="userNm" th:field="*{userNm}" th:placeholder="#{userNm}">
+                  <label for="userNm">회원명</label>
+                  <input type="text" id="userNm" name="userNm" th:field="*{userNm}" th:placeholder="#{userNm}">
                   <div class="error" th:each="err : ${#fields.errors('userNm')}" th:text="${err}"></div>
               </li>
           </ul>

@@ -3,9 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/layouts/main}">
     <section layout:fragment="content">
-        <nav th:replace="~{admin/book/_submenus::menus}"></nav>
 
-        <th:block th:replace="~{commons/search::search}"></th:block>
+        <nav th:replace="~{admin/book/_submenus::menus}"></nav>
+        <h1><i class="xi-library-books-o"></i>도서 관리</h1>
+
+        <form class="search" name="searchForm" method="get" th:action="@{/admin/book}" th:object="${bookSearch}">
+            <th:block th:replace="~{commons/search::search}"></th:block>
+        </form>
 
         <table class="table_rows">
             <thead>

@@ -56,7 +56,7 @@ public class BookController {
 
         Page<RentalBook> page = listService.getPage();
 
-        String url = request.getContextPath() + "/admin/book";
+        String url = request.getContextPath() + "/book";
         Pagination<RentalBook> pagination = new Pagination<>(page, url);
         model.addAttribute("bookSearch", bookSearch);
         model.addAttribute("files", files);
@@ -77,13 +77,17 @@ public class BookController {
             f.setFileUrl(fileUrl);
         }
 
+        // 도서가 대여중일 경우 대여한 회원정보와 대여번호를 가져옴
         if(book.getStatus() == RentalStatus.RENT) {
             Rental rental = rentalService.getRentalInfo(bookId);
-            String userId = rental.getUser().getUserId();
-            Long rentalNo = rental.getRentalNo();
+            if (rental != null) {
+                String userId = rental.getUser().getUserId();
+                Long rentalNo = rental.getRentalNo();
 
-            model.addAttribute("userId", userId);
-            model.addAttribute("rentalNo", rentalNo);
+                model.addAttribute("userId", userId);
+                model.addAttribute("rentalNo", rentalNo);
+            }
+
         }
 
         model.addAttribute("images", files);
