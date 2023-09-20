@@ -107,8 +107,6 @@ public class UserController {
 
                 book.setStatus(RentalStatus.RETURN);
 
-                System.out.println("rental3: " + rental.getUser());
-                System.out.println("book: " + book);
                 rentalRepository.saveAndFlush(rental);
                 bookRepository.saveAndFlush(book);
             }
