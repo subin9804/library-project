@@ -1,4 +1,4 @@
-let interval = setInterval(navigate, 5000);
+let interval = setInterval(navigate, 7000);
 
 const banners = document.getElementsByClassName("bannerImg");
 let prevIdx = banners.length - 1;
@@ -84,3 +84,6 @@ function navigateBanner(value) {
     }
 }
 */
+
+// 최신도서 화살표로 스크롤 넘기기
+

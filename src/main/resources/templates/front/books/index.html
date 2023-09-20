@@ -5,18 +5,16 @@
       layout:decorate="~{front/layouts/main}">
 
 <section class="main_content" layout:fragment="content">
-    <h1>도서 검색</h1>
+    <h1><i class="xi-library-books-o"></i>도서 검색</h1>
 
-
-    <th:block th:replace="~{commons/search::search}"></th:block>
+    <form class="search" name="searchForm" method="get" th:action="@{/book}" th:object="${bookSearch}">
+        <th:block th:replace="~{commons/search::search}"></th:block>
+    </form>
 
     <table class="table_rows">
         <thead>
         <tr>
-            <th width="30">
-                <input type="checkbox" class="checkall" data-target-name="bookId" id="check_all">
-                <label for="check_all"></label>
-            </th>
+
             <th width="150">도서ID</th>
             <th width="150">제목</th>
             <th width="150">도서분류</th>
@@ -35,9 +33,6 @@
         </th:block>
         <th:block th:unless="${#lists.isEmpty(books)}">
             <tr th:each="book, status : ${books}" th:object= "${book}">
-                <td>
-                    <input type="checkbox" name="bookId" th:value="*{bookId}" th:id="'bookId_' + ${status.index}">
-                </td>
                 <td th:text="*{bookId}"></td>
                 <td>
                     <a th:href="@{/book/{bookId}(bookId = ${book.bookId})}">
@@ -64,11 +59,8 @@
                             </button>
                         </form>`
                     </th:block>
-
-                    <!--반납-->
                     <th:block th:if="*{status.toString()} == 'RENT'">
-                        <a th:href="@{/book/{bookId}(bookId = ${book.bookId})}"><button>반납하기</button></a>
-
+                        <button disabled>대여중</button>
                     </th:block>
                 </td>
             </tr>

@@ -3,6 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/layouts/main}">
 <section layout:fragment="content">
+    <h1><i class="xi-library-books-o"></i>대여 관리</h1>
+
     <table>
         <thead>
         <tr class="th">
@@ -18,7 +20,8 @@
         <tbody>
         <tr th:each="item : ${rental}" th:object="${item}">
             <td class="rentalNo" th:text="*{rentalNo}"></td>
-            <td class="userNo" th:text="*{user.userNo}"></td>
+            <td class="userNo" th:if="*{user} == null" th:text="탈퇴회원"></td>
+            <td class="userNo" th:unless="*{user} == null"  th:text="*{user.userNo}"></td>
             <td class="bookId" th:text="*{book.bookId}"></td>
             <td class="bookNm" th:text="*{bookNm}"></td>
             <td class="rentDt" th:text="*{#temporals.format(rentDt, 'yyyy-MM-dd')}"></td>

@@ -15,7 +15,6 @@ import org.awesome.models.user.UserInfo;
 import org.awesome.repositories.RentalRepository;
 import org.awesome.repositories.UserRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -89,12 +88,15 @@ public class MypageController {
 
     // 대여 내역
     @GetMapping("/rent")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        User user = userRepository.findById(userInfo.getUserNo()).orElse(null);
+
         Page<Rental> page = rentalRepository.getRentalList();
         String url = request.getContextPath() + "/mypage";
         Pagination<Rental> pagination = new Pagination<>(page, url);
 
-        List<Rental> rental = rentalRepository.findAll(Sort.by(Sort.Order.desc("rentDt")));
+        List<Rental> rental = rentalRepository.findByUserOrderByRentDtDesc(user);
 
         model.addAttribute("pagination", pagination);
         model.addAttribute("rental", rental);

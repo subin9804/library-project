@@ -13,7 +13,7 @@ a {
 dl, dt, dd, ul, ol, li {
     margin: 0; padding: 0;
 }
- ol {
+ ol, ul {
     list-style: none;
 }
 img {
@@ -105,6 +105,15 @@ textarea {
     line-height: 45px;
 }
 
+.pagination {
+    text-align: center;
+}
+.pagination li {
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
 
 /** 관리자 헤더 영역  S */
 header{
@@ -112,8 +121,15 @@ header{
     display: flex;
     justify-content: space-between;
     height: 70px;
-    background: #ffffff;
+    background: #ddd;
     border-bottom: 2px solid #000;
+}
+#header .logo {
+    width: 200px;
+    padding: 20px;
+}
+.logo h1 {
+    text-align: center;
 }
 header > section{
     display: flex;
@@ -190,6 +206,10 @@ table button {
 table button:hover {
     background-color: black;
     color: white;
+}
+
+.search input[type='text']{
+    width: 80%;
 }
 
 /* 파일 모달창 및 컨테이너 */

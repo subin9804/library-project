@@ -36,6 +36,49 @@ select option:disabled { color: red; background-color: #f8f8f8; }
 
 .layout_width { max-width: 1140px; min-width: 1000px; margin: 0 auto; }
 
+.pagination {
+    text-align: center;
+}
+/** 공통 버튼 */
+.btn1, .btn2{
+    border: 1px solid #000;
+    display: inline-block;
+    padding: 7px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.btn2{
+    background: #fff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn1:hover{
+    background: #000;
+    color: #fff;
+}
+
+.btn2:hover{
+    background: orange;
+}
+
+.submit_btn{
+    color: #fff;
+    border-radius: 5px;
+    min-width: 250px;
+    background: #000;
+    height: 45px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border: 0;
+    margin: 10px auto;
+    display: block;
+    line-height: 45px;
+}
 
 /** 사이트 헤더 공통 S */
 header nav .inner { display: flex; justify-content: space-between; }
@@ -147,6 +190,32 @@ main nav.sub_menus{
     font-size: 20px;
 }
 
+/** 회원 검색 S */
+table {
+    width: 100%;
+    min-width: 700px;
+    text-align: center;
+    padding: 1rem;
+}
+table tr {
+    padding: 0.5rem 0 0.5rem 0;
+}
+
+table button {
+    border-radius: 5px;
+    border: 1px solid;
+    padding: 0.5rem;
+    background-color: white
+}
+table button:hover {
+    background-color: black;
+    color: white;
+}
+
+.search input[type='text']{
+    width: 80%;
+}
+
 /** 홈화면 도서추천 그리드 */
 #reco {
     padding: 20px;
@@ -161,7 +230,7 @@ main nav.sub_menus{
 }
 #reco ul {
     white-space: nowrap;
-    overflow: hidden;
+    overflow: auto;
     height: 280px;
     padding: 10px;
     position: relative;
@@ -179,6 +248,17 @@ main nav.sub_menus{
     margin: 0;
     padding-top: 10px;
 }
+#arrowBox {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
 @media(max-width: 1075px) {
     .flex {
         width: 590px;
@@ -191,7 +271,44 @@ main nav.sub_menus{
     height: 180px;
     object-fit: cover;
     border-radius: 20px;
+    transition: 0.2s;
 }
+.recent li:hover {
+    border: 5px solid blue;
+}
+
+/** 로그인 및 회원가입 */
+#joinFm, #frmLogin {
+    width: 100%;
+    text-align: center;
+}
+#frmLogin div {
+    margin-bottom: 20px;
+}
+#user_form {
+    width: 100%;
+}
+#joinFm button {
+    text-align: center;
+    margin-top: 20px;
+}
+.user_form li {
+    width: 100%;
+    padding-bottom: 10px;
+    text-align: left;
+}
+.rows label {
+    display: inline-block;
+    width: 120px;
+}
+.rows input[type='text'], .rows input[type='password'] {
+    width: calc(100% - 125px);
+    text-align: left;
+}
+.form {
+    flex-direction: column;
+}
+
 
 /** 책 디테일 페이지 */
 .detail {
