@@ -5,13 +5,17 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.awesome.commons.Pagination;
+import org.awesome.constants.RentalStatus;
 import org.awesome.entities.FileInfo;
+import org.awesome.entities.Rental;
 import org.awesome.entities.RentalBook;
 import org.awesome.models.book.BookInfoService;
 import org.awesome.models.book.BookListService;
 import org.awesome.models.book.BookSaveService;
 import org.awesome.repositories.FileInfoRepository;
 import org.awesome.repositories.RentalBookRepository;
+import org.awesome.repositories.RentalRepository;
+import org.awesome.repositories.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -33,6 +38,8 @@ public class BookController {
     private final BookListService listService;
     private final RentalBookRepository bookRepository;
     private final FileInfoRepository fileRepository;
+    private final UserRepository userRepository;
+    private final RentalRepository rentalRepository;
     private final HttpSession session;
 
     @GetMapping
@@ -101,7 +108,20 @@ public class BookController {
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") String bookId, Model model){
         RentalBook book = bookRepository.findById(bookId).orElse(null);
+        List<Rental> rentals = rentalRepository.findAllByBook(book);
 
+
+        // 삭제된 도서의 대여기록은 반납처리(0000-00-00)
+        for(Rental rental : rentals) {
+//            User user = userRepository.findByRental(rental);
+//            if(user != null) {
+//                Rental rentalRecord = user
+//            }
+
+            rental.setBook(null);
+            rental.setStatus(RentalStatus.RETURN);
+            rental.setRealRtDt(LocalDate.parse("1111-11-11"));
+        }
         if(book != null) {
             bookRepository.delete(book);
         }

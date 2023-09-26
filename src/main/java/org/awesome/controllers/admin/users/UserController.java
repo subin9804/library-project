@@ -27,7 +27,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller("adminUserController")
-@RequestMapping("/admin/user")
+@RequestMapping("/admin")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -39,7 +39,7 @@ public class UserController {
     private final HttpServletResponse response;
     private final HttpServletRequest request;
 
-    @GetMapping
+    @GetMapping("/user")
     public String userList(UserSearch userSearch, Model model, HttpServletRequest request) {
         List<User> userList = userListService.getUserList(userSearch).toList();
         Page<User> page = userListService.getPage();
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     // user 정보 수정
-    @GetMapping("/edit/{userNo}")
+    @GetMapping("user/edit/{userNo}")
     public String editUser(@PathVariable Long userNo, Model model) {
         User user = userRepository.findById(userNo).orElseGet(User::new);
 
@@ -73,7 +73,7 @@ public class UserController {
         return "admin/user/edit";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("user/edit")
     public String editUserPs(@Valid UserListForm userForm, Errors errors) {
 
         if (errors.hasErrors()) {
@@ -88,7 +88,7 @@ public class UserController {
 
 
     // user 삭제
-    @GetMapping("/delete/{userNo}")
+    @GetMapping("user/delete/{userNo}")
     public String deleteUser(@PathVariable Long userNo, Model model){
         User user = userRepository.findById(userNo).orElse(null);
         List<Rental> rentals = rentalRepository.findByUser(user);

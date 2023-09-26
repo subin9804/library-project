@@ -4,6 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import org.awesome.constants.UserType;
 import org.awesome.controllers.admin.users.UserSearch;
 import org.awesome.entities.QUser;
+import org.awesome.entities.Rental;
 import org.awesome.entities.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long>, QuerydslPredicateExecutor {
     User findByUserId(String userId);
+    User findByRental(Rental rental);
 
     default Page<User> getUsers(UserSearch userSearch) {
         /** 페이징 처리 s */

@@ -5,6 +5,7 @@ commonLib.fileManager = {
     * 파일 업로드
     */
     upload(files, location, imageOnly) {
+        console.log(files);
         const { ajaxLoad } = commonLib;
 
         try {

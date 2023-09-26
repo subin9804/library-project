@@ -22,7 +22,8 @@
             <td class="rentalNo" th:text="*{rentalNo}"></td>
             <td class="userNo" th:if="*{user} == null" th:text="탈퇴회원"></td>
             <td class="userNo" th:unless="*{user} == null"  th:text="*{user.userNo}"></td>
-            <td class="bookId" th:text="*{book.bookId}"></td>
+            <td th:if="*{book} != null" class="bookId" th:text="*{book.bookId}"></td>
+            <td th:unless="*{book} != null" class="bookId">*</td>
             <td class="bookNm" th:text="*{bookNm}"></td>
             <td class="rentDt" th:text="*{#temporals.format(rentDt, 'yyyy-MM-dd')}"></td>
             <td class="returnDt" th:text="*{#temporals.format(returnDt, 'yyyy-MM-dd')}"></td>

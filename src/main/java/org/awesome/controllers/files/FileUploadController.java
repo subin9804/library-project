@@ -3,6 +3,7 @@ package org.awesome.controllers.files;
 import lombok.RequiredArgsConstructor;
 import org.awesome.commons.JSONData;
 import org.awesome.entities.FileInfo;
+import org.awesome.models.file.FileDeleteService;
 import org.awesome.models.file.FileInfoService;
 import org.awesome.models.file.FileUploadService;
 import org.awesome.repositories.FileInfoRepository;
@@ -23,6 +24,7 @@ public class FileUploadController {
     private final FileUploadService uploadService;
     private final FileInfoService infoService;
     private final FileInfoRepository fileRepository;
+    private final FileDeleteService deleteService;
 
     @Value("${file.upload.path}")
     private String fileUploadPath;
@@ -71,10 +73,23 @@ public class FileUploadController {
         return ResponseEntity.ok(data);
     }
 
+    @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Long id, Model model) {
-//        deleteService.delete
+        deleteService.delete(id);
+
+        /** 파일 삭제 성공시 콜백함수 처리 */
+        String script = String.format("if(typeof parent.fileDeleteCallback == 'function') parent.fileDeleteCallback(%d);", id);
+        model.addAttribute("script", script);
 
         return "commons/execute_script";
     }
 
+    @ExceptionHandler(Exception.class)
+    public String errorHandler(Exception e, Model model) {
+        e.printStackTrace();
+        String script = String.format("alert('%s');", e.getMessage());
+        model.addAttribute("script", script);
+
+        return "commons/execute_script";
+    }
 }

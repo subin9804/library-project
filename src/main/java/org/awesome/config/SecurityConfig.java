@@ -49,6 +49,9 @@ public class SecurityConfig {
 
                     res.sendRedirect(req.getContextPath() + redirectUrl);
                 });
+        // X-Frame-Options Click jacking 공격 막기 설정 오류 해결
+        http.headers()
+                .frameOptions().sameOrigin();
 
         return http.build();
     }

@@ -42,6 +42,7 @@ function fileDeleteCallback(fileId) {
     if(!fileId) return;
 
     console.log("delete" + fileId);
-//    const el = document.getElementById(`file_${fileId}`);
-//    if(el) el.parentElement.removeChild(el);
+    const el = document.getElementById(`file_${fileId}`);
+    if(el) el.parentElement.removeChild(el);
 }
+

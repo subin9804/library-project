@@ -34,7 +34,7 @@ window.onload = function() {
             clearInterval(interval);
     }
     bannerBox.onmouseout = function(e) {
-            interval = setInterval(navigate, 5000);
+            interval = setInterval(navigate, 7000);
     }
 }
 
