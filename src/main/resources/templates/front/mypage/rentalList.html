@@ -19,7 +19,8 @@
         <tbody>
             <tr th:each="item : ${rental}" th:object="${item}">
                 <td class="rentalNo" th:text="*{rentalNo}"></td>
-                <td class="bookId" th:text="*{book.bookId}"></td>
+                <td th:if="*{book != null}" class="bookId" th:text="*{book.bookId}"></td>
+                <td th:unless="*{book != null}" class="bookId">x</td>
                 <td class="bookNm" th:text="*{bookNm}"></td>
                 <td class="rentDt" th:text="*{#temporals.format(rentDt, 'yyyy-MM-dd')}"></td>
                 <td class="returnDt" th:text="*{#temporals.format(returnDt, 'yyyy-MM-dd')}"></td>
@@ -36,7 +37,7 @@
 
                 <td>
                     <form method="post" th:action="@{/book/return}">
-                        <input type="hidden" name="bookId" th:value="*{book.bookId}">
+                        <input th:if="*{book != null}" type="hidden" name="bookId" th:value="*{book.bookId}">
                         <input type="hidden" name="rentalNo" th:value="*{rentalNo}">
                         <button th:if="*{status.toString()} == 'RENT'">반납하기</button>
                         <button th:if="*{status.toString()} == 'RETURN'" disabled>반납완료</button>

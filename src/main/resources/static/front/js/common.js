@@ -7,10 +7,17 @@ window.addEventListener("DOMContentLoaded", function() {
     const imgUl = document.getElementById('imgUl')
     const bookImg = document.getElementsByClassName("bookImg");
 
-    let width = 300;
+    let width = 0;
+    let height = 0;
+    if(window.innerWidth <= 900) {
+        width = 250;
+        height = 300;
+    } else {
+        width = 300;
+        height = 400
+    }
     let prevIndex = 0;
     let thisIndex = 0;
-
 
     if (bookImg.length === 1) {
         right.classList.add("dn");

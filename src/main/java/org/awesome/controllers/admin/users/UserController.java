@@ -91,23 +91,25 @@ public class UserController {
     @GetMapping("user/delete/{userNo}")
     public String deleteUser(@PathVariable Long userNo, Model model){
         User user = userRepository.findById(userNo).orElse(null);
+        user.setRental(null);
+
         List<Rental> rentals = rentalRepository.findByUser(user);
 
         // 삭제될 유저가 빌린 도서들을 모두 반납처리
         // 삭제될 유저의 대여기록에서 유저정보 제거
         for(Rental rental : rentals) {
 
+            rental.setUser(null);
+            rental.setRealRtDt(LocalDate.now());
+            rental.setStatus(RentalStatus.RETURN);
+
+            rentalRepository.saveAndFlush(rental);
+
+            // 대여 기록 중 반납되지 않은 도서
             if(rental.getStatus() == RentalStatus.RENT) {
                 RentalBook book =  bookRepository.findById(rental.getBook().getBookId()).orElse(null);
-
-                user.setRental(null);
-                rental.setUser(null);
-                rental.setRealRtDt(LocalDate.now());
-                rental.setStatus(RentalStatus.RETURN);
-
                 book.setStatus(RentalStatus.RETURN);
 
-                rentalRepository.saveAndFlush(rental);
                 bookRepository.saveAndFlush(book);
             }
         }

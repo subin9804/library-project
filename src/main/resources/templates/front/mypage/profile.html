@@ -5,12 +5,13 @@
 
     <section class="main_content" layout:fragment="content">
         <h1><i class="xi-library-books-o"></i> 나의 프로필</h1>
-        <div id="info" class="detail" th:object="${user}">
+        <div id="info" class="detail display-block" th:object="${user}">
             <dl>
                 <dd style="text-align: center;">
                     <img class="profilePhoto" th:src="*{photo}"/>
                 </dd>
             </dl>
+            <div>
             <dl>
                 <dt>회원번호</dt>
                 <dd th:text="*{userNo}"></dd>
