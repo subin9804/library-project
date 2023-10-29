@@ -12,7 +12,7 @@
 ![Library data structure](https://github.com/subin9804/library-project/assets/116933612/968977a8-0fd7-4fe5-b8b6-9e2dffdddfa8)
 
 ## 📍아키텍처
-- AWS EC2를 통해 리눅스 서버에서 빌드하여 서버를 배포했습니다.
+- AWS EC2를 통해 리눅스 서버에서 빌드하여 서버를 배포했습니다. <br/>
 ![library아키텍처](https://github.com/subin9804/library-project/assets/116933612/68fa8897-e0bd-4c8e-a2c2-b72c0dd58652)
 
 ## 📍프로젝트 소개
