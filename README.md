@@ -3,9 +3,9 @@
 ## 📍개요
 - 도서 대여 및 관리 서비스를 제공하기 위해 SpringFramework로 제작한 개인프로젝트입니다.
     - 개발기간: 2023-05 ~ 2023-09
-    - 개발언어: <img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black">
+    - 개발언어: <img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=java&logoColor=white"> <img id="main-logo-img" src="https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=fff"> <img id="main-logo-img" src="https://img.shields.io/badge/CSS3-1572B6.svg?style=for-the-badge&logo=CSS3&logoColor=fff"> <img id="main-logo-img" src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&ogo=JavaScript&logoColor=black">
     - 개발환경: <img id="main-logo-img" src="https://img.shields.io/badge/IntelliJ-000.svg?style=for-the-badge&logo=IntelliJ&logoColor=white"> <img id="main-logo-img" src="https://img.shields.io/badge/maven-C71A36.svg?style=for-the-badge&logo=maven&logoColor=white">
-    - DB: <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white">
+    - DB: <img id="main-logo-img" src="https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=MySQL&logoColor=white">
     - 프레임워크/라이브러리: <img id="main-logo-img" src="https://img.shields.io/badge/springboot-green.svg?style=for-the-badge&logo=springboot&logoColor=white"> <img id="main-logo-img" src="https://img.shields.io/badge/thymeleaf-005F0F.svg?style=for-the-badge&logo=thymeleaf&logoColor=white"> <img id="main-logo-img" src="https://img.shields.io/badge/JPA-000.svg?style=for-the-badge&logo=JPA&logoColor=white"> <img id="main-logo-img" src="https://img.shields.io/badge/querydsl-000.svg?style=for-the-badge&logo=querydsl&logoColor=white"> <img id="main-logo-img" src="https://img.shields.io/badge/springsecurity-6DB33F.svg?style=for-the-badge&logo=springsecurity&logoColor=white">
 
 ## 📍ERD
