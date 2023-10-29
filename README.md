@@ -35,7 +35,7 @@
 - 바로 대여가 가능하며 상세페이지에서 도서 정보를 확인할 수 있습니다.
 - 회원 정보와 도서의 상태에 따라 대여 가능 여부가 결정됩니다.
 ![user-book-detail](https://github.com/subin9804/library-project/assets/116933612/28f8a0a4-634d-4daa-b3e4-fb9440a9b864)
-![user-rent](https://github.com/subin9804/library-project/assets/116933612/7c129258-cf37-4299-98a7-024e2ec04bd1)
+![user-book](https://github.com/subin9804/library-project/assets/116933612/5bf02ab0-7633-4577-88a1-08cb1c889f36)
 
 ### 4. 회원 - 프로필
 - 본인의 프로필을 조회 및 수정할 수 있습니다.
